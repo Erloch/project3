@@ -10,7 +10,7 @@ mongoose.connect(
 
 const doingThings = [
   {
-    activty: "Skiing",
+    activity: "Skiing",
     author: "Stephen King",
     description:
       "Go down a mountain on peices of wood.",
