@@ -6,11 +6,12 @@ export default {
     }, 
 
     getBucket: function (id){
-        return axios.delete("/api/buckets" + id)
+        return axios.delete("/api/buckets/" + id)
     },
 
     deleteBucket: function (id) {
-        return axios.delete("api/buckets" + id)
+        console.log(id)
+        return axios.delete("/api/buckets/" + id)
 
     },
 
