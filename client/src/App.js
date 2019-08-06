@@ -14,8 +14,8 @@ function App() {
       <Nav />
       <Switch>
         <Route exact path = "/" component = {Bucket}></Route>
-        <Route exact path = "/Bucket" component = {Bucket}></Route>
-        <Route exact path = "/Bucket/:id" component = {Detail}></Route>
+        <Route exact path = "/Buckets" component = {Bucket}></Route>
+        <Route exact path = "/Buckets/:id" component = {Detail}></Route>
         <Route component = {NoMatch}></Route>
     
       </Switch>
