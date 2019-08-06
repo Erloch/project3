@@ -6,7 +6,7 @@
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "start:dev": "concurrently \"nodemon ignore 'client/*'\" \"npm run client\"",
     "client": "cd client && npm run start",
     "seed": "node scripts/seedDB.js",
     "install": "cd client && npm install",
@@ -26,9 +26,11 @@
   "homepage": "https://github.com/Erloch/project3#readme",
   "dependencies": {
     "axios": "^0.19.0",
+    "env": "0.0.2",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
-    "mongoose": "^5.6.8"
+    "mongoose": "^5.6.8",
+    "react-scripts": "^3.0.1"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
