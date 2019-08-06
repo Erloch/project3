@@ -28,11 +28,14 @@ class Buckets extends Component {
       .catch(err => console.log(err));
   };
 
-  deleteBucket = id => {
+  deleteBucket(id) {
+    console.log("id = " + id)
     API.deleteBucket(id)
       .then(res => this.loadBuckets())
       .catch(err => console.log(err));
   };
+
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -102,7 +105,8 @@ class Buckets extends Component {
                         {listItem.activity} by {listItem.author}
                       </strong>
                     </Link>
-                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)} />
+                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
+                } />
                   </ListItem>
                 ))}
               </List>
