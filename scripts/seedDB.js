@@ -17,7 +17,34 @@ const doingThings = [
     date: new Date(Date.now()),
     image: "https://images.unsplash.com/photo-1551524559-8af4e6624178?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1852&q=80",
     completed: false
-  }
+  },
+  {
+    activity: "lkamsd",
+    author: "Stephen King 2",
+    description:
+      "Go down a mountain on peices of wood.",
+    date: new Date(Date.now()),
+    image: "https://images.unsplash.com/photo-1551524559-8af4e6624178?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1852&q=80",
+    completed: false
+  },
+  {
+    activity: "kjh",
+    author: "Stephen King 3",
+    description:
+      "Go down a mountain on peices of wood.",
+    date: new Date(Date.now()),
+    image: "https://images.unsplash.com/photo-1551524559-8af4e6624178?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1852&q=80",
+    completed: false
+  },
+  {
+    activity: "kjhk",
+    author: "Stephen King 4",
+    description:
+      "Go down a mountain on peices of wood.",
+    date: new Date(Date.now()),
+    image: "https://images.unsplash.com/photo-1551524559-8af4e6624178?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1852&q=80",
+    completed: true
+  },
 ];
 
 db.BLItem

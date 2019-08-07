@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import "./Profile.scss";
 import { Button } from "reactstrap";
 import { Link } from "react-router-dom"
-import API from "../../../../../../project3/project3/client/src/utils/API"
+import API from "../../utils/API"
 
 
 class Profile extends Component {
