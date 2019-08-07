@@ -5,6 +5,7 @@ const bucketListSchema = new Schema({
     author: { type: String, required: true },
     description: String,
     image: String,
+    completed: { type:Boolean, default: false },
     date: { type: Date, default: Date.now }
     
 });
