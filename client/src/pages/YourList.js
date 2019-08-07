@@ -76,7 +76,32 @@ class Buckets extends Component {
                                 </Link>
                                 <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
                                 } />
-                            </ListItem>) : (<h3>No completed items</h3>)
+                            </ListItem>) : (<h3>No completed items, you suck, get out!</h3>)
+                        ))}
+                    </List>
+                ) : (
+                        <h3>No Results to Display</h3>
+                    )}
+            </>
+        )
+    }
+
+    renderIncompleteItems = () => {
+        return (
+            <>
+                {this.state.bucketList.length ? (
+                    <List>
+                        {this.state.bucketList.map(listItem => (
+                            listItem.completed === false ? (
+                            <ListItem key={listItem._id}>
+                                <Link to={"/buckets/" + listItem._id}>
+                                    <strong>
+                                        {listItem.activity} by {listItem.author}
+                                    </strong>
+                                </Link>
+                                <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
+                                } />
+                            </ListItem>) : (<h3>No incomplete items</h3>)
                         ))}
                     </List>
                 ) : (
@@ -94,23 +119,7 @@ class Buckets extends Component {
                         <Jumbotron className="bg-info">
                             <h1 className="display-4 text-light">To Do Bucket Activities</h1>
                         </Jumbotron>
-                        {this.state.bucketList.length ? (
-                            <List>
-                                {this.state.bucketList.map(listItem => (
-                                    <ListItem key={listItem._id}>
-                                        <Link to={"/buckets/" + listItem._id}>
-                                            <strong>
-                                                {listItem.activity} by {listItem.author}.
-                                            </strong>
-                                        </Link>
-                                        <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
-                                        } />
-                                    </ListItem>
-                                ))}
-                            </List>
-                        ) : (
-                                <h3>No Results to Display</h3>
-                            )}
+                        {this.renderIncompleteItems()}
                     </Col>
                 </Row>
                 <Row>
