@@ -2,7 +2,7 @@ const router = require("express").Router();
 const passport = require("../../config/passport");
 const db = require("../../models");
 const authMiddleware = require("../../config/middleware/authMiddleware");
-
+const userController = require("../../controllers/userController");
 // /api/users/login
 // route to login the user
 router.post("/login", passport.authenticate("local", {
@@ -80,12 +80,14 @@ router.get("/admin", authMiddleware.isAdmin, function(req, res, next) {
   });
 });
 
-router.get("/user", authMiddleware.isLoggedIn, function(req, res, next) {
-  db.User.findByIdAndUpdate(req.user._id).populate('todos').then((user) => {
-    res.json(user);
-  }).catch((err) => {
-    res.json(err);
-  });
-});
+// router.get("/user", authMiddleware.isLoggedIn, function(req, res, next) {
+//   db.User.findByIdAndUpdate(req.user._id).populate('todos').then((user) => {
+//     res.json(user);
+//   }).catch((err) => {
+//     res.json(err);
+//   });
+// });
+
+
 
 module.exports = router;

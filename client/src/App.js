@@ -4,7 +4,7 @@ import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
-import { Container } from 'reactstrap';
+// import { Container } from 'reactstrap';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 

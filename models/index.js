@@ -1,5 +1,5 @@
 module.exports = {
-    User: require("./Users"),
+    User: require("./User"),
     BLItem:require('./bucketListItem'),
     Todo: require("./Todos")
 }
