@@ -2,8 +2,10 @@ import React from 'react';
 import Bucket from "./pages/Bucket";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
-
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
+import { Container } from 'reactstrap';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 
 
@@ -11,17 +13,20 @@ function App() {
   return (
     <Router>
       <>
-      <Nav />
-      <Switch>
-        <Route exact path = "/" component = {Bucket}></Route>
-        <Route exact path = "/Buckets" component = {Bucket}></Route>
-        <Route exact path = "/Buckets/:id" component = {Detail}></Route>
-        <Route component = {NoMatch}></Route>
-    
-      </Switch>
+        <Nav />
+        <Switch>
+          <Route exact path="/" component={Bucket}></Route>
+          <Route exact path="/Buckets" component={Bucket}></Route>
+          <Route exact path="/Buckets/:id" component={Detail}></Route>
+          <Route exact path="/signup" render={(props) => <Auth {...props} action="signup" />} />
+          <Route exact path="/login" render={(props) => <Auth {...props} action="login" />} />
+          <Route exact path="/profile" component={Profile} />
+          <Route component={NoMatch}></Route>
+
+        </Switch>
       </>
     </Router>
-   
+
   );
 }
 

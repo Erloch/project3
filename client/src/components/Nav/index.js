@@ -1,4 +1,5 @@
 import React from 'react';
+import API from "../../utils/API";
 import {
   Collapse,
   Navbar,
@@ -10,17 +11,41 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem
+} from 'reactstrap';
 
 export default class NavBar extends React.Component {
+
   constructor(props) {
     super(props);
-
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      loggedIn: false
     };
   }
+
+  componentDidMount() {
+    API.isLoggedIn().then(user => {
+      if (user.data.loggedIn) {
+        this.setState({
+          loggedIn: true
+        });
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
+  logout() {
+    API.logout().then((data) => {
+      window.location.pathname = "/"
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -30,7 +55,7 @@ export default class NavBar extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">bucket list</NavbarBrand>
+          <NavbarBrand href="/">Bucket List</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -41,10 +66,30 @@ export default class NavBar extends React.Component {
                 <NavLink href="#">Bucket List Ideas</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
+
                 <DropdownToggle nav caret>
                   Profile
                 </DropdownToggle>
                 <DropdownMenu right>
+                  {this.state.loggedIn ? (
+                    <>
+                      <DropdownItem>
+                        <NavLink href="/profile">Profile</NavLink>
+                      </DropdownItem>
+                      <DropdownItem>
+                        <NavLink onClick={this.logout}>Logout</NavLink>
+                      </DropdownItem>
+                    </>
+                  ) : (
+                      <>
+                        <DropdownItem>
+                          <NavLink href="/login">login</NavLink>
+                        </DropdownItem>
+                        <DropdownItem>
+                          <NavLink href="/signup">signup</NavLink>
+                        </DropdownItem>
+                      </>
+                    )}
                   <DropdownItem>
                     My Bucket List
                   </DropdownItem>
