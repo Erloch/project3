@@ -1,8 +1,9 @@
 {
   "name": "workingtitleproject3",
+  "homepage": "https://floating-forest-33085.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "react": "^16.8.6",
