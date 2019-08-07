@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class Buckets extends Component {
   state = {
@@ -15,11 +16,20 @@ class Buckets extends Component {
     author: "",
     description: "",
     image: "",
-    currentAuthor: ""
+    currentAuthor: "",
+    modal: false
   };
-
+  
   componentDidMount() {
     this.loadBuckets();
+    this.toggle = this.toggle.bind(this);
+    
+  }  
+
+  toggle() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
   }
 
   loadBuckets = () => {
@@ -63,9 +73,9 @@ class Buckets extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
+          <Col size="md-12">
             <Jumbotron className="bg-warning">
-              <h1 className="display-4">{this.state.bucketList.length ? (
+              <h1 className="display">{this.state.bucketList.length ? (
               <>
                 {this.state.bucketList[0].author}, what would you like to do?
               </>
@@ -73,7 +83,29 @@ class Buckets extends Component {
                 <>Please Sign In to add Bucket List Items</>
               )}</h1>
             </Jumbotron>
-            <form>
+            
+          </Col>
+          <Col size="md-12">
+            
+            {this.state.bucketList.length ? (
+              <List>
+                {this.state.bucketList.map(listItem => (
+                  <ListItem key={listItem._id}>
+                    <Link to={"/buckets/" + listItem._id}>
+                      <strong>
+                        {listItem.activity} by {listItem.author}
+                      </strong>
+                    </Link>
+                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
+                    } />
+                  </ListItem>
+                ))}
+              <div>
+              <Button color="danger" onClick={this.toggle}>Create Your Own!</Button>
+              <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
+                <ModalBody>
+                <form>
               <Input
                 value={this.state.activity}
                 onChange={this.handleInputChange}
@@ -99,24 +131,13 @@ class Buckets extends Component {
                 Submit Activity
               </FormBtn>
             </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron className="bg-info">
-              <h1 className="display-4 text-light">Other Bucket Activities</h1>
-            </Jumbotron>
-            {this.state.bucketList.length ? (
-              <List>
-                {this.state.bucketList.map(listItem => (
-                  <ListItem key={listItem._id}>
-                    <Link to={"/buckets/" + listItem._id}>
-                      <strong>
-                        {listItem.activity} by {listItem.author}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
-                    } />
-                  </ListItem>
-                ))}
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="secondary" onClick={this.toggle}>Close</Button>
+                </ModalFooter>
+              </Modal>
+              </div>
+            
               </List>
             ) : (
                 <h3>No Results to Display</h3>
