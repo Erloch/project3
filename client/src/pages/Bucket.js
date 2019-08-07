@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
+// import Jumbotron from "../components/Jumbotron";
+import { Jumbotron } from "reactstrap";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
@@ -13,7 +14,8 @@ class Buckets extends Component {
     activity: "",
     author: "",
     description: "",
-    image: ""
+    image: "",
+    currentAuthor: ""
   };
 
   componentDidMount() {
@@ -23,7 +25,7 @@ class Buckets extends Component {
   loadBuckets = () => {
     API.getBuckets()
       .then(res =>
-        this.setState({ bucketList: res.data, activity: "", author: "", description: "",})
+        this.setState({ bucketList: res.data, activity: "", author: "", description: "", })
       )
       .catch(err => console.log(err));
   };
@@ -62,8 +64,14 @@ class Buckets extends Component {
       <Container fluid>
         <Row>
           <Col size="md-6">
-            <Jumbotron>
-              <h1>What activity should I do?</h1>
+            <Jumbotron className="bg-warning">
+              <h1 className="display-4">{this.state.bucketList.length ? (
+              <>
+                {this.state.bucketList[0].author}, what would you like to do?
+              </>
+            ) : (
+                <>Please Sign In to add Bucket List Items</>
+              )}</h1>
             </Jumbotron>
             <form>
               <Input
@@ -88,13 +96,13 @@ class Buckets extends Component {
                 disabled={!(this.state.author && this.state.activity)}
                 onClick={this.handleFormSubmit}
               >
-                Submit Activity 
+                Submit Activity
               </FormBtn>
             </form>
           </Col>
           <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Other Bucket Activities</h1>
+            <Jumbotron className="bg-info">
+              <h1 className="display-4 text-light">Other Bucket Activities</h1>
             </Jumbotron>
             {this.state.bucketList.length ? (
               <List>
@@ -106,13 +114,13 @@ class Buckets extends Component {
                       </strong>
                     </Link>
                     <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
-                } />
+                    } />
                   </ListItem>
                 ))}
               </List>
             ) : (
-              <h3>No Results to Display</h3>
-            )}
+                <h3>No Results to Display</h3>
+              )}
           </Col>
         </Row>
       </Container>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "reactstrap";
 
 // This file exports the Input, TextArea, and FormBtn components
 
@@ -20,8 +21,8 @@ export function TextArea(props) {
 
 export function FormBtn(props) {
   return (
-    <button {...props} style={{ float: "right", marginBottom: 10 }} className="btn btn-success">
+    <Button {...props} style={{ float: "right", marginBottom: 10 }} color="danger" size="lg" block>
       {props.children}
-    </button>
+    </Button>
   );
 }
