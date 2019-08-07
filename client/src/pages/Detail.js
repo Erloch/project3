@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
+import "./Detail.css"
 
 class Detail extends Component {
   state = {
@@ -20,23 +21,25 @@ class Detail extends Component {
 
   render() {
     return (
+      <>
       <Container fluid>
         <Row>
           <Col size="md-12">
             <Jumbotron>
               <h1>
-                {this.state.bucketList.activity} by {this.state.bucketList.author}
+      
+                {this.state.bucketList.activity} by {this.state.bucketList.author}<br></br>
+                Completed: {this.state.bucketList.completed}
               </h1>
             </Jumbotron>
           </Col>
         </Row>
         <Row>
-          <Col size="md-10 md-offset-1">
             <article>
               <h1>Description</h1>
               <p>{this.state.bucketList.description}</p>
+              <img src={this.state.bucketList.image}/>
             </article>
-          </Col>
         </Row>
         <Row>
           <Col size="md-2">
@@ -44,6 +47,7 @@ class Detail extends Component {
           </Col>
         </Row>
       </Container>
+      </>
     );
   }
 }
