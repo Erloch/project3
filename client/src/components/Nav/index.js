@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
 import {
   Collapse,
   Navbar,
@@ -46,7 +48,9 @@ export default class NavBar extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    My Bucket List
+                    <Link to="/YourList">
+                      My Bucket List
+                    </Link>
                   </DropdownItem>
                   <DropdownItem>
                     Completed

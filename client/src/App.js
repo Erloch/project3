@@ -2,6 +2,7 @@ import React from 'react';
 import Bucket from "./pages/Bucket";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
+import YourList from "./pages/YourList";
 
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Nav from "./components/Nav";
@@ -16,8 +17,8 @@ function App() {
         <Route exact path = "/" component = {Bucket}></Route>
         <Route exact path = "/Buckets" component = {Bucket}></Route>
         <Route exact path = "/Buckets/:id" component = {Detail}></Route>
+        <Route exact path = "/YourList" component = {YourList}></Route>
         <Route component = {NoMatch}></Route>
-    
       </Switch>
       </>
     </Router>
