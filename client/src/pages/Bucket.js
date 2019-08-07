@@ -100,7 +100,13 @@ class Buckets extends Component {
                     } />
                   </ListItem>
                 ))}
-              <div>
+             
+            
+              </List>
+            ) : (
+                <h3>No Results to Display</h3>
+              )}
+               <div>
               <Button color="danger" onClick={this.toggle}>Create Your Own!</Button>
               <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
@@ -137,11 +143,6 @@ class Buckets extends Component {
                 </ModalFooter>
               </Modal>
               </div>
-            
-              </List>
-            ) : (
-                <h3>No Results to Display</h3>
-              )}
           </Col>
         </Row>
       </Container>
