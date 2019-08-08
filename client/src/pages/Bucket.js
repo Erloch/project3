@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteBtn";
+import CompBtn from "../components/CompBtn";
+import AddBtn from "../components/AddBtn"
 // import Jumbotron from "../components/Jumbotron";
 import { Jumbotron } from "reactstrap";
 import API from "../utils/API";
@@ -40,12 +42,22 @@ class Buckets extends Component {
       .catch(err => console.log(err));
   };
 
+  addBucket(id){
+    console.log("add id =" + id)
+  }
+
   deleteBucket(id) {
     console.log("id = " + id)
     API.deleteBucket(id)
       .then(res => this.loadBuckets())
       .catch(err => console.log(err));
   };
+
+  compBucket(id){
+    console.log("comp id =" + id)
+  }
+
+
 
 
 
@@ -96,8 +108,10 @@ class Buckets extends Component {
                         {listItem.activity} by {listItem.author}
                       </strong>
                     </Link>
+                    <CompBtn onClick={()=> this.compBucket(listItem._id)}/>
                     <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
                     } />
+                    <AddBtn onClick={()=> this.addBucket(listItem._id)} />
                   </ListItem>
                 ))}
              
