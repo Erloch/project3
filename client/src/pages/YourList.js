@@ -13,31 +13,29 @@ class Buckets extends Component {
         bucketList: [],
         completedItems: [],
         incompleteItems: [],
+        skippedItems: [],
         activity: "",
         author: "",
         description: "",
         image: "",
-        completed: "",
         currentAuthor: ""
     };
 
     componentDidMount() {
+        console.log("component did mount");
         this.loadBuckets();
         // push completed and incomplete items to respective arrays
-        this.state.bucketList.map(listItem => {
-            if(listItem.complete === false){
-                this.state.incompleteItems.push(listItem);
-            }else{
-                this.state.completedItems.push(listItem);
-            }
-        });
+
     }
+
 
     loadBuckets = () => {
         API.getBuckets()
-            .then(res =>
-                this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: "", completed: "" })
-            )
+            .then(res => {
+                const completedItems = res.data.filter(listItem => listItem.completed);
+                const incompleteItems = res.data.filter(listItem => !listItem.completed);
+                this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: "" , completedItems, incompleteItems});
+            })
             .catch(err => console.log(err));
     };
 
@@ -70,81 +68,6 @@ class Buckets extends Component {
         }
     };
 
-    checkCompleted = item => {
-        // if()
-    }
-    renderCompletedItems = () => {
-        if (this.state.bucketList.length) {
-            return (
-                <List>
-                        {this.state.bucketList.map(listItem => (
-                            listItem.completed === true ? (
-                                <ListItem key={listItem._id}>
-                                    <Link to={"/buckets/" + listItem._id}>
-                                        <strong>
-                                            {listItem.activity} by {listItem.author}
-                                        </strong>
-                                    </Link>
-                                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
-                                    } />
-                                </ListItem>) : (<></>)
-                        ))}
-                    </List>
-            )
-        } else {
-            return (
-                <h3>No Results to Display</h3>
-            )
-        }
-        // return (
-        //     <>
-        //         {this.state.bucketList.length ? (
-        //             <List>
-        //                 {this.state.bucketList.map(listItem => (
-        //                     listItem.completed === true ? (
-        //                         <ListItem key={listItem._id}>
-        //                             <Link to={"/buckets/" + listItem._id}>
-        //                                 <strong>
-        //                                     {listItem.activity} by {listItem.author}
-        //                                 </strong>
-        //                             </Link>
-        //                             <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
-        //                             } />
-        //                         </ListItem>) : (<h3>No completed items, you suck, get out!</h3>)
-        //                 ))}
-        //             </List>
-        //         ) : (
-        //                 <h3>No Results to Display</h3>
-        //             )}
-        //     </>
-        // )
-    }
-
-    renderIncompleteItems = () => {
-        if (this.state.bucketList.length) {
-            return (
-                <List>
-                        {this.state.bucketList.map(listItem => (
-                            listItem.completed === false ? (
-                                <ListItem key={listItem._id}>
-                                    <Link to={"/buckets/" + listItem._id}>
-                                        <strong>
-                                            {listItem.activity} by {listItem.author}
-                                        </strong>
-                                    </Link>
-                                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
-                                    } />
-                                </ListItem>) : (<></>)
-                        ))}
-                    </List>
-            )
-        } else {
-            return (
-                <h3>No Results to Display</h3>
-            )
-        }
-    }
-
     render() {
         return (
             <Container fluid>
@@ -153,7 +76,19 @@ class Buckets extends Component {
                         <Jumbotron className="bg-info">
                             <h1 className="display-4 text-light">To Do Bucket Activities</h1>
                         </Jumbotron>
-                        {this.renderIncompleteItems()}
+                        <List>
+                            {this.state.incompleteItems.map(listItem => (
+                                <ListItem key={listItem._id}>
+                                    <Link to={"/buckets/" + listItem._id}>
+                                        <strong>
+                                            {listItem.activity} by {listItem.author}
+                                        </strong>
+                                    </Link>
+                                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
+                                    } />
+                                </ListItem>)
+                            )}
+                        </List>
                     </Col>
                 </Row>
                 <Row>
@@ -161,7 +96,19 @@ class Buckets extends Component {
                         <Jumbotron className="bg-info">
                             <h1 className="display-4 text-light">Completed Bucket Activities</h1>
                         </Jumbotron>
-                        {this.renderCompletedItems()}
+                        <List>
+                            {this.state.completedItems.map(listItem => (
+                                <ListItem key={listItem._id}>
+                                    <Link to={"/buckets/" + listItem._id}>
+                                        <strong>
+                                            {listItem.activity} by {listItem.author}
+                                        </strong>
+                                    </Link>
+                                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
+                                    } />
+                                </ListItem>)
+                            )}
+                        </List>
                     </Col>
                 </Row>
             </Container>
