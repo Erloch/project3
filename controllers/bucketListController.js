@@ -18,7 +18,10 @@ module.exports = {
   create: function(req, res) {
     db.BLItem
       .create(req.body)
-      .then(dbModel => res.json(dbModel))
+      .then(dbModel => {
+        id = dbModel.id;
+        return db.User.findOneAndUpdate({_id: req.body.userID},{$push: {bucketArray: id}}, {new: true})
+      })
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {

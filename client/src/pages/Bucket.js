@@ -17,7 +17,8 @@ class Buckets extends Component {
     description: "",
     image: "",
     currentAuthor: "",
-    modal: false
+    modal: false,
+    userID: this.props.userID
   };
   
   componentDidMount() {

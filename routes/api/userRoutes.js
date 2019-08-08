@@ -88,6 +88,9 @@ router.get("/admin", authMiddleware.isAdmin, function(req, res, next) {
 //   });
 // });
 
-
+router.route("/bucket/:id")
+.get(userController.findById)
+.put(userController.update)
+.delete(userController.remove);
 
 module.exports = router;
