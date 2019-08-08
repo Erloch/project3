@@ -1,7 +1,8 @@
 .modelbutt{
     width: 80%;
-    margin: 10px auto;
+    margin: auto;
+    margin-bottom: 10px;
 }
-li{
-    background-color: black;
+h1{
+    color: white;
 }

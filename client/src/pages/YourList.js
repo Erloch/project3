@@ -24,14 +24,18 @@ class Buckets extends Component {
     componentDidMount() {
         this.loadBuckets();
         // push completed and incomplete items to respective arrays
-        this.state.bucketList.map(listItem => {
-            if(listItem.complete === false){
-                this.state.incompleteItems.push(listItem);
-            }else{
-                this.state.completedItems.push(listItem);
-            }
-        });
+        
     }
+
+    // sortBuckets = () =>{
+    //     this.state.bucketList.map(listItem => {
+    //         if(listItem.complete === false){
+    //             this.state.incompleteItems.push(listItem);
+    //         }else{
+    //             this.state.completedItems.push(listItem);
+    //         }
+    //     });
+    // }
 
     loadBuckets = () => {
         API.getBuckets()

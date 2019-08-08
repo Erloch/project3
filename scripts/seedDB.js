@@ -28,7 +28,8 @@ const doingThings = [
       "Jumping out of an airplane.",
     date: new Date(Date.now()),
     image: "https://media.giphy.com/media/1QdRoqyqXDMktztwrA/giphy.gif",
-    completed: false
+    completed: false,
+    recommended: true
   },
   {
     activity: "Scuba Diving",
@@ -37,7 +38,8 @@ const doingThings = [
       "Jumping into water.",
     date: new Date(Date.now()),
     image: "https://media.giphy.com/media/cNZP7NkRV8A0KgY43X/giphy.gif",
-    completed: false
+    completed: false,
+    recommended: true
   },
   {
     activity: "Mountain Climbing",
@@ -46,7 +48,8 @@ const doingThings = [
       "Go up a mountain on peices of wood.",
     date: new Date(Date.now()),
     image: "https://media.giphy.com/media/xT4uQvE6Dm6go7psJ2/giphy.gif",
-    completed: true
+    completed: true,
+    recommended: true
   },
 ];
 

@@ -10,6 +10,7 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import "./Bucket.css"
 
 class Buckets extends Component {
   state = {
@@ -37,7 +38,7 @@ class Buckets extends Component {
   loadBuckets = () => {
     API.getBuckets()
       .then(res =>
-        this.setState({ bucketList: res.data, activity: "", author: "", description: "", })
+        this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: ""})
       )
       .catch(err => console.log(err));
   };
@@ -57,10 +58,6 @@ class Buckets extends Component {
     console.log("comp id =" + id)
   }
 
-
-
-
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -74,7 +71,8 @@ class Buckets extends Component {
       API.saveBucket({
         activity: this.state.activity,
         author: this.state.author,
-        description: this.state.description
+        description: this.state.description,
+        image: this.state.image
       })
         .then(res => this.loadBuckets())
         .catch(err => console.log(err));
@@ -86,7 +84,7 @@ class Buckets extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
-            <Jumbotron className="bg-warning">
+            <Jumbotron className="bg-primary">
               <h1 className="display">{this.state.bucketList.length ? (
               <>
                 {this.state.bucketList[0].author}, what would you like to do?
@@ -95,33 +93,9 @@ class Buckets extends Component {
                 <>Please Sign In to add Bucket List Items</>
               )}</h1>
             </Jumbotron>
-            
           </Col>
-          <Col size="md-12">
-            
-            {this.state.bucketList.length ? (
-              <List>
-                {this.state.bucketList.map(listItem => (
-                  <ListItem key={listItem._id}>
-                    <Link to={"/buckets/" + listItem._id}>
-                      <strong>
-                        {listItem.activity} by {listItem.author}
-                      </strong>
-                    </Link>
-                    <CompBtn onClick={()=> this.compBucket(listItem._id)}/>
-                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
-                    } />
-                    <AddBtn onClick={()=> this.addBucket(listItem._id)} />
-                  </ListItem>
-                ))}
-             
-            
-              </List>
-            ) : (
-                <h3>No Results to Display</h3>
-              )}
-               <div>
-              <Button color="danger" onClick={this.toggle}>Create Your Own!</Button>
+          <div className="modelbutt">
+              <Button color="success" onClick={this.toggle}>Create Your Own!</Button>
               <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
                 <ModalBody>
@@ -144,6 +118,12 @@ class Buckets extends Component {
                 name="description"
                 placeholder="Description (Optional)"
               />
+              <Input 
+              value={this.state.image}
+              onChange={this.handleInputChange}
+              name="image"
+              placeholder="Pic (or it didn't happen)"
+              />
               <FormBtn
                 disabled={!(this.state.author && this.state.activity)}
                 onClick={this.handleFormSubmit}
@@ -157,6 +137,27 @@ class Buckets extends Component {
                 </ModalFooter>
               </Modal>
               </div>
+
+          <Col size="md-12">
+            {this.state.bucketList.length ? (
+              <List>
+                {this.state.bucketList.map(listItem => (
+                  <ListItem className="mt-2" key={listItem._id}>
+                    <Link to={"/buckets/" + listItem._id}>
+                      <strong>
+                        {listItem.activity} by {listItem.author}
+                      </strong>
+                    </Link>
+                    <CompBtn onClick={()=> this.compBucket(listItem._id)}/>
+                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
+                    } />
+                    <AddBtn onClick={()=> this.addBucket(listItem._id)} />
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+                <h3>No Results to Display</h3>
+              )}
           </Col>
         </Row>
       </Container>
