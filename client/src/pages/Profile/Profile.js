@@ -1,18 +1,23 @@
 import React, { Component } from "react";
 import "./Profile.scss";
 import { Button } from "reactstrap";
-import { Link } from "react-router-dom"
-import API from "../../utils/API"
+import { Link } from "react-router-dom";
+import API from "../../utils/API";
+import yourList from "../YourList"
 
 
 class Profile extends Component {
     state = {
         loggedIn: false,
         user: null,
-        loading: true
+        loading: true,
+        userID: this.props.userID
+
     }
 
+    
     componentDidMount() {
+        console.log(this.state);
 
         this.loading();
 
@@ -34,7 +39,7 @@ class Profile extends Component {
             console.log(err);
         });
 
-        console.log(this.props)
+        console.log(this.props.userID)
     }
 
     loading() {
@@ -52,6 +57,7 @@ class Profile extends Component {
                     <div className="profileBox">
                         <h1 id="userTitle">Welcome {this.state.user.username}</h1>
                     </div>
+                   
                 ) : (
                         <div className="noUser">
                             {!this.state.loading ? (

@@ -9,6 +9,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 
+
 class Buckets extends Component {
     state = {
         bucketList: [],
@@ -19,7 +20,7 @@ class Buckets extends Component {
         completed: "",
         currentAuthor: "",
         date: Date.now(),
-        userID: this.props.userID
+        userID: ""
     };
 
     componentDidMount() {
@@ -37,7 +38,7 @@ class Buckets extends Component {
                     image: "",
                     completed: "",
                     date: Date.now(),
-                    userID: this.props.userID
+                    userID: ""
                 })
             )
             .catch(err => console.log(err));

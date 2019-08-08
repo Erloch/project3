@@ -50,7 +50,7 @@ class App extends Component {
         username: this.state.username,
         password: this.state.password
       }).then(user => {
-        console.log(user);
+        console.log(user.data);
         if (user.data.loggedIn) {
           this.setState({
             loggedIn: true,
@@ -98,17 +98,17 @@ class App extends Component {
 
   handleSignup = event => {
     event.preventDefault();
-    alert("hello")
     if (this.state.username && this.state.password) {
       API.signup({
         username: this.state.username,
         password: this.state.password
       }).then(user => {
         if (user.data.loggedIn) {
+          console.log(user.data)
           this.setState({
             loggedIn: true,
             user: user.data.user,
-            username: user.data.user.user.username
+            username: ""
           });
           console.log("log in successful");
           window.location.href = '/profile';
@@ -138,7 +138,11 @@ class App extends Component {
                   userID={this.state.userID}
                 />} />
             <Route exact path="/Buckets/:id" component={Detail}></Route>
-            <Route exact path="/YourList" component={YourList}></Route>
+            <Route exact path="/YourList" 
+            render={(props) =>
+              <YourList {...props}
+                userID={this.state.userID}
+              />} />
             <Route exact path="/signup" render={(props) =>
               <Auth {...props}
                 username={this.state.username}
@@ -149,6 +153,7 @@ class App extends Component {
                 handleInputChange={this.handleInputChange}
                 handleLogin={this.handleLoggin}
                 handleLogout={this.handleLogout}
+                confirmPassword={this.state.confirmPassword}
                 message={this.state.message}
                 action="signup"
               />} />
@@ -159,7 +164,7 @@ class App extends Component {
                 password={this.state.password}
                 user={this.state.user}
                 handleInputChange={this.handleInputChange}
-                handleLogin={this.handleLoggin}
+                handleLogin={this.handleLogin}
                 handleLogout={this.handleLogout}
                 action="login"
               />} />
