@@ -6,6 +6,7 @@ const bucketListSchema = new Schema({
     description: String,
     image: String,
     completed: { type:Boolean, default: false },
+    reccommended: {type: Boolean, default: true},
     date: { type: Date, default: Date.now },
     userID:{ type: String, required: true }
     

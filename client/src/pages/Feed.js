@@ -12,7 +12,7 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "./Bucket.css"
 
-class Buckets extends Component {
+class Feed extends Component {
   state = {
     bucketList: [],
     activity: "",
@@ -20,8 +20,7 @@ class Buckets extends Component {
     description: "",
     image: "",
     currentAuthor: "",
-    modal: false,
-    userID: ""
+    modal: false
   };
   
   componentDidMount() {
@@ -88,56 +87,14 @@ class Buckets extends Component {
             <Jumbotron className="bg-primary">
               <h1 className="display">{this.state.bucketList.length ? (
               <>
-                {this.state.bucketList[0].author}, what would you like to do?
+                {this.state.bucketList[0].author}, would you like to see other buckets?
               </>
             ) : (
                 <>Please Sign In to add Bucket List Items</>
               )}</h1>
             </Jumbotron>
           </Col>
-          <div className="modelbutt">
-              <Button color="success" onClick={this.toggle}>Create Your Own!</Button>
-              <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
-                <ModalBody>
-                <form>
-              <Input
-                value={this.state.activity}
-                onChange={this.handleInputChange}
-                name="activity"
-                placeholder="Activity (required)"
-              />
-              <Input
-                value={this.state.author}
-                onChange={this.handleInputChange}
-                name="author"
-                placeholder="Author (required)"
-              />
-              <TextArea
-                value={this.state.description}
-                onChange={this.handleInputChange}
-                name="description"
-                placeholder="Description (Optional)"
-              />
-              <Input 
-              value={this.state.image}
-              onChange={this.handleInputChange}
-              name="image"
-              placeholder="Pic (or it didn't happen)"
-              />
-              <FormBtn
-                disabled={!(this.state.author && this.state.activity)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Activity
-              </FormBtn>
-            </form>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="secondary" onClick={this.toggle}>Close</Button>
-                </ModalFooter>
-              </Modal>
-              </div>
+          
 
           <Col size="md-12">
             {this.state.bucketList.length ? (
@@ -166,4 +123,4 @@ class Buckets extends Component {
   }
 }
 
-export default Buckets;
+export default Feed;
