@@ -61,3 +61,15 @@ db.BLItem
     console.error(err);
     process.exit(1);
   });
+
+db.UserBLItem
+  .remove({})
+  .then(() => db.BLItem.collection.insertMany(doingThings))
+  .then(data => {
+    console.log(data.result.n + " records inserted!");
+    process.exit(0);
+  })
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });

@@ -8,12 +8,13 @@ import { Link } from "react-router-dom";
 import { Container, Row, Col } from 'reactstrap';
 import { List, ListItem } from "../components/List";
 
-class Buckets extends Component {
+class YourList extends Component {
     state = {
         bucketList: [],
+        onBList: [],
         completedItems: [],
         incompleteItems: [],
-        skippedItems: [],
+        notRecommended: [],
         activity: "",
         author: "",
         description: "",
@@ -32,9 +33,10 @@ class Buckets extends Component {
     loadBuckets = () => {
         API.getBuckets()
             .then(res => {
-                const completedItems = res.data.filter(listItem => listItem.completed);
+                const completedItems = res.data.filter(listItem => listItem.completed && listItem.onBList);
                 const incompleteItems = res.data.filter(listItem => !listItem.completed);
-                this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: "" , completedItems, incompleteItems});
+                const notRecommended = res.data.filter(listItem => !listItem.recommended);
+                this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: "", completedItems, incompleteItems, notRecommended });
             })
             .catch(err => console.log(err));
     };
@@ -116,4 +118,4 @@ class Buckets extends Component {
     }
 }
 
-export default Buckets;
+export default YourList;

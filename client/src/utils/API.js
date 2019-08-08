@@ -35,6 +35,9 @@ export default {
     deleteBucket: function (id) {
         return axios.delete("api/buckets/" + id)
     },
+    updateBucket: function (id){
+        return axios.put("api/buckets/" + id)
+    },
     saveBucket : function (bucketData) {
         return axios.post ('/api/buckets', bucketData)
     }
