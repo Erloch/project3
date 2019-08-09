@@ -85,7 +85,7 @@ export default class NavBar extends React.Component {
                   ) : (
                       <>
                         <DropdownItem>
-                          <NavLink href="/login">login</NavLink>
+                          <NavLink href="/">login</NavLink>
                         </DropdownItem>
                         <DropdownItem>
                           <NavLink href="/signup">signup</NavLink>

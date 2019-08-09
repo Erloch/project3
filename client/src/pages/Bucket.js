@@ -21,7 +21,7 @@ class Buckets extends Component {
     image: "",
     currentAuthor: "",
     modal: false,
-    userID: ""
+    userID: this.props.userID
   };
   
   componentDidMount() {
@@ -39,7 +39,13 @@ class Buckets extends Component {
   loadBuckets = () => {
     API.getBuckets()
       .then(res =>
-        this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: ""})
+        this.setState({ 
+          bucketList: res.data, 
+          activity: "", 
+          author: "", 
+          description: "", 
+          image: ""
+        })
       )
       .catch(err => console.log(err));
   };

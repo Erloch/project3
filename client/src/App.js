@@ -59,7 +59,7 @@ class App extends Component {
             user: user.data.user
           });
           console.log("log in successful");
-          window.location.href = '/profile';
+          window.location.href = '/YourList';
         }
         else if (user.data.message) {
           this.setState({
@@ -128,12 +128,12 @@ class App extends Component {
   };
 
   render() {
+    // <Route exact path="/" component={Bucket}></Route>
     return (
       <Router>
         <>
           <Nav />
           <Switch>
-            <Route exact path="/" component={Bucket}></Route>
             <Route exact path="/Buckets"
               render={(props) =>
                 <Bucket {...props}
@@ -160,7 +160,7 @@ class App extends Component {
                 message={this.state.message}
                 action="signup"
               />} />
-            <Route exact path="/login" render={(props) =>
+            <Route exact path="/" render={(props) =>
               <Auth {...props}
                 username={this.state.username}
                 loggedIn={this.state.loggedIn}

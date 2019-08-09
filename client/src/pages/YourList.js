@@ -7,9 +7,12 @@ import { Link } from "react-router-dom";
 // import { Col, Row, Container } from "../components/Grid";
 import { Container, Row, Col } from 'reactstrap';
 import { List, ListItem } from "../components/List";
+import { Input, TextArea, FormBtn } from "../components/Form";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import "./Bucket.css"
 
 
-class Buckets extends Component {
+class YourList extends Component {
     state = {
         bucketList: [],
         completedItems: [],
@@ -19,16 +22,45 @@ class Buckets extends Component {
         author: "",
         description: "",
         image: "",
-        currentAuthor: ""
+        modal: false,
+        currentAuthor: "",
+        userID: ""
+
     };
 
     componentDidMount() {
         console.log("component did mount");
-        this.loadBuckets();
-        // push completed and incomplete items to respective arrays
-        
-    }
+        console.log(this.props)
+        this.toggle = this.toggle.bind(this);
+        API.isLoggedIn().then(user => {
+            if (user.data.loggedIn) {
+                this.setState({
+                    loggedIn: true,
+                    user: user.data.user
+                }, () => {
+                    API.getUserBucket(this.state.user._id).then(
+                        res => this.setState({
+                            user: res.data,
+                            userID: res.data._id,
+                            currentAuthor: res.data.username
+                        })
+                        ).catch(err => console.log(err));
+                        
+                        
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+            // push completed and incomplete items to respective arrays
+            this.loadBuckets();
 
+    }
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
     // sortBuckets = () =>{
     //     this.state.bucketList.map(listItem => {
     //         if(listItem.complete === false){
@@ -44,10 +76,14 @@ class Buckets extends Component {
             .then(res => {
                 const completedItems = res.data.filter(listItem => listItem.completed);
                 const incompleteItems = res.data.filter(listItem => !listItem.completed);
-                this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: "" , completedItems, incompleteItems});
+                this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: "", completedItems, incompleteItems });
             })
             .catch(err => console.log(err));
     };
+
+    addBucket(id) {
+        console.log("add id =" + id)
+    }
 
     deleteBucket(id) {
         console.log("id = " + id)
@@ -55,6 +91,10 @@ class Buckets extends Component {
             .then(res => this.loadBuckets())
             .catch(err => console.log(err));
     };
+
+    compBucket(id) {
+        console.log("comp id =" + id)
+    }
 
 
 
@@ -67,17 +107,19 @@ class Buckets extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-        if (this.state.activity && this.state.author) {
+        if (this.state.activity) {
             API.saveBucket({
                 activity: this.state.activity,
-                author: this.state.author,
+                author: this.state.currentAuthor,
                 description: this.state.description,
                 date: this.state.date,
-                userID: this.props.userID
+                userID: this.state.userID
             })
                 .then(res => this.loadBuckets())
                 .catch(err => console.log(err));
         }
+        this.toggle();
+        this.loadBuckets();
     };
 
     render() {
@@ -85,6 +127,49 @@ class Buckets extends Component {
         console.log(this.state);
         return (
             <Container fluid>
+                <div className="modelbutt">
+                    <Button color="success" onClick={this.toggle}>Create Your Own!</Button>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                        <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
+                        <ModalBody>
+                            <form>
+                                <Input
+                                    value={this.state.activity}
+                                    onChange={this.handleInputChange}
+                                    name="activity"
+                                    placeholder="Activity (required)"
+                                />
+                                {/* <Input
+                value={this.state.author}
+                onChange={this.handleInputChange}
+                name="author"
+                placeholder="Author (required)"
+              /> */}
+                                <TextArea
+                                    value={this.state.description}
+                                    onChange={this.handleInputChange}
+                                    name="description"
+                                    placeholder="Description (Optional)"
+                                />
+                                <Input
+                                    value={this.state.image}
+                                    onChange={this.handleInputChange}
+                                    name="image"
+                                    placeholder="Pic (or it didn't happen)"
+                                />
+                                <FormBtn
+                                    disabled={!(this.state.activity)}
+                                    onClick={this.handleFormSubmit}
+                                >
+                                    Submit Activity
+              </FormBtn>
+                            </form>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="secondary" onClick={this.toggle}>Close</Button>
+                        </ModalFooter>
+                    </Modal>
+                </div>
                 <Row>
                     <Col sm="12" md={{ size: 6, offset: 3 }}>
                         <Jumbotron className="bg-info">
@@ -130,4 +215,4 @@ class Buckets extends Component {
     }
 }
 
-export default Buckets;
+export default YourList;
