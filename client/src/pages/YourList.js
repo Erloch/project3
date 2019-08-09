@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 // import { Col, Row, Container } from "../components/Grid";
 import { Container, Row, Col } from 'reactstrap';
 import { List, ListItem } from "../components/List";
+import { Input, TextArea, FormBtn } from "../components/Form";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class YourList extends Component {
     state = {
@@ -19,33 +21,33 @@ class YourList extends Component {
         author: "",
         description: "",
         image: "",
-        currentAuthor: ""
+        currentAuthor: "",
+        modal: false
+
     };
 
     componentDidMount() {
         console.log("component did mount");
         this.loadBuckets();
+        this.toggle = this.toggle.bind(this);
+
         // push completed and incomplete items to respective arrays
-        
+
     }
 
-    // sortBuckets = () =>{
-    //     this.state.bucketList.map(listItem => {
-    //         if(listItem.complete === false){
-    //             this.state.incompleteItems.push(listItem);
-    //         }else{
-    //             this.state.completedItems.push(listItem);
-    //         }
-    //     });
-    // }
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
 
     loadBuckets = () => {
         API.getBuckets()
             .then(res => {
-                const completedItems = res.data.filter(listItem => listItem.completed && listItem.onBList);
+                const completedItems = res.data.filter(listItem => listItem.completed);
                 const incompleteItems = res.data.filter(listItem => !listItem.completed);
-                const notRecommended = res.data.filter(listItem => !listItem.recommended);
-                this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: "", completedItems, incompleteItems, notRecommended });
+                // const notRecommended = res.data.filter(listItem => !listItem.recommended);
+                this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: "", completedItems, incompleteItems });
             })
             .catch(err => console.log(err));
     };
@@ -84,6 +86,49 @@ class YourList extends Component {
             <Container fluid>
                 <Row>
                     <Col sm="12" md={{ size: 6, offset: 3 }}>
+                        <div className="modelbutt">
+                            <Button color="success" onClick={this.toggle}>Create Your Own!</Button>
+                            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                                <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
+                                <ModalBody>
+                                    <form>
+                                        <Input
+                                            value={this.state.activity}
+                                            onChange={this.handleInputChange}
+                                            name="activity"
+                                            placeholder="Activity (required)"
+                                        />
+                                        <Input
+                                            value={this.state.author}
+                                            onChange={this.handleInputChange}
+                                            name="author"
+                                            placeholder="Author (required)"
+                                        />
+                                        <TextArea
+                                            value={this.state.description}
+                                            onChange={this.handleInputChange}
+                                            name="description"
+                                            placeholder="Description (Optional)"
+                                        />
+                                        <Input
+                                            value={this.state.image}
+                                            onChange={this.handleInputChange}
+                                            name="image"
+                                            placeholder="Pic (or it didn't happen)"
+                                        />
+                                        <FormBtn
+                                            disabled={!(this.state.author && this.state.activity)}
+                                            onClick={this.handleFormSubmit}
+                                        >
+                                            Submit Activity
+                                        </FormBtn>
+                                    </form>
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button color="secondary" onClick={this.toggle}>Close</Button>
+                                </ModalFooter>
+                            </Modal>
+                        </div>
                         <Jumbotron className="bg-info">
                             <h1 className="display-4 text-light">To Do Bucket Activities</h1>
                         </Jumbotron>
