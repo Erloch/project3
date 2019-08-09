@@ -16,12 +16,13 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
+    console.log("kittens", req.body)
     db.BLItem
       .create(req.body)
       .then(dbModel => {
-        id = dbModel.id;
+        id = dbModel._id;
         return db.User.findOneAndUpdate({_id: req.body.userID},{$push: {bucketArray: id}}, {new: true})
-      })
+      }).then(dbUser => res.end())
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {

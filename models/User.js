@@ -31,7 +31,7 @@ const usersSchema = new Schema({
   },
   bucketArray: [{
     type: Schema.Types.ObjectId,
-    ref: "bucketListItem",
+    ref: "BLItem",
 
   }]
 });

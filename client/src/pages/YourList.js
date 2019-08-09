@@ -44,16 +44,16 @@ class YourList extends Component {
                             userID: res.data._id,
                             currentAuthor: res.data.username
                         })
-                        ).catch(err => console.log(err));
-                        
-                        
-                    });
-                }
-            }).catch(err => {
-                console.log(err);
-            });
-            // push completed and incomplete items to respective arrays
-            this.loadBuckets();
+                    ).catch(err => console.log(err));
+
+
+                });
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+        // push completed and incomplete items to respective arrays
+        this.loadBuckets();
 
     }
     toggle() {
@@ -61,22 +61,28 @@ class YourList extends Component {
             modal: !prevState.modal
         }));
     }
-    // sortBuckets = () =>{
-    //     this.state.bucketList.map(listItem => {
-    //         if(listItem.complete === false){
-    //             this.state.incompleteItems.push(listItem);
-    //         }else{
-    //             this.state.completedItems.push(listItem);
-    //         }
-    //     });
-    // }
+    
+    loadBuckets = () => {
+        
+    }
 
     loadBuckets = () => {
-        API.getBuckets()
+        API.getBucket(this.state.userID)
             .then(res => {
+                console.log("kittens2",res)
                 const completedItems = res.data.filter(listItem => listItem.completed);
                 const incompleteItems = res.data.filter(listItem => !listItem.completed);
-                this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: "", completedItems, incompleteItems });
+                this.setState({
+                    bucketList: res.data,
+                    activity: "",
+                    author: "",
+                    description: "",
+                    image: "",
+                    completedItems,
+                    incompleteItems,
+                    userID: this.state.userID
+
+                });
             })
             .catch(err => console.log(err));
     };
@@ -115,11 +121,11 @@ class YourList extends Component {
                 date: this.state.date,
                 userID: this.state.userID
             })
-                .then(res => this.loadBuckets())
+                .then(() => this.loadBuckets())
                 .catch(err => console.log(err));
         }
+        // this.loadBuckets();
         this.toggle();
-        this.loadBuckets();
     };
 
     render() {
@@ -139,12 +145,7 @@ class YourList extends Component {
                                     name="activity"
                                     placeholder="Activity (required)"
                                 />
-                                {/* <Input
-                value={this.state.author}
-                onChange={this.handleInputChange}
-                name="author"
-                placeholder="Author (required)"
-              /> */}
+
                                 <TextArea
                                     value={this.state.description}
                                     onChange={this.handleInputChange}
@@ -175,19 +176,23 @@ class YourList extends Component {
                         <Jumbotron className="bg-info">
                             <h1 className="display-4 text-light">To Do Bucket Activities</h1>
                         </Jumbotron>
-                        <List>
-                            {this.state.incompleteItems.map(listItem => (
-                                <ListItem key={listItem._id}>
-                                    <Link to={"/buckets/" + listItem._id}>
-                                        <strong>
-                                            {listItem.activity} by {listItem.author}
-                                        </strong>
-                                    </Link>
-                                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
-                                    } />
-                                </ListItem>)
+                        {this.state.user && this.state.user.bucketArray.length ? (
+                            <List>
+                                {this.state.incompleteItems.map(listItem => (
+                                    <ListItem key={listItem._id}>
+                                        <Link to={"/buckets/" + listItem._id}>
+                                            <strong>
+                                                {listItem.activity} by {this.state.currentAuthor}
+                                            </strong>
+                                        </Link>
+                                        <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
+                                        } />
+                                    </ListItem>)
+                                )}
+                            </List>
+                        ) : (
+                                <h3>No Results to Display</h3>
                             )}
-                        </List>
                     </Col>
                 </Row>
                 <Row>
