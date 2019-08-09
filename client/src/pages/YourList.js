@@ -38,22 +38,14 @@ class YourList extends Component {
                     loggedIn: true,
                     user: user.data.user
                 }, () => {
-                    API.getUserBucket(this.state.user._id).then(
-                        res => this.setState({
-                            user: res.data,
-                            userID: res.data._id,
-                            currentAuthor: res.data.username
-                        })
-                    ).catch(err => console.log(err));
-
-
+                  this.loadBuckets();
                 });
             }
         }).catch(err => {
             console.log(err);
         });
         // push completed and incomplete items to respective arrays
-        this.loadBuckets();
+       
 
     }
     toggle() {
@@ -62,30 +54,43 @@ class YourList extends Component {
         }));
     }
     
-    loadBuckets = () => {
-        
-    }
+    
 
     loadBuckets = () => {
-        API.getBucket(this.state.userID)
-            .then(res => {
-                console.log("kittens2",res)
-                const completedItems = res.data.filter(listItem => listItem.completed);
-                const incompleteItems = res.data.filter(listItem => !listItem.completed);
+        API.getUserBucket(this.state.user._id).then(
+            res => {
+                const completedItems = res.data.bucketArray.filter(listItem => listItem.completed);
+                const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed);
                 this.setState({
-                    bucketList: res.data,
-                    activity: "",
-                    author: "",
-                    description: "",
-                    image: "",
+                    userID: res.data._id,
+                    currentAuthor: res.data.username,
                     completedItems,
                     incompleteItems,
-                    userID: this.state.userID
+                })
+            }
+        ).catch(err => console.log(err));    
+    }
 
-                });
-            })
-            .catch(err => console.log(err));
-    };
+    // loadBuckets = () => {
+    //     API.getBucket(this.state.userID)
+    //         .then(res => {
+    //             console.log("kittens2",res)
+    //             const completedItems = res.data.filter(listItem => listItem.completed);
+    //             const incompleteItems = res.data.filter(listItem => !listItem.completed);
+    //             this.setState({
+    //                 bucketList: res.data,
+    //                 activity: "",
+    //                 author: "",
+    //                 description: "",
+    //                 image: "",
+    //                 completedItems,
+    //                 incompleteItems,
+    //                 userID: this.state.userID
+
+    //             });
+    //         })
+    //         .catch(err => console.log(err));
+    // };
 
     addBucket(id) {
         console.log("add id =" + id)
