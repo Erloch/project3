@@ -40,5 +40,8 @@ export default {
     },
     saveBucket : function (bucketData) {
         return axios.post ('/api/buckets', bucketData)
+    },
+    getAllBuckets: function (bucketData) {
+        return axios.post ("/api/buckets")
     }
 }
