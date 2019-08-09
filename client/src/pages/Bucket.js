@@ -61,8 +61,11 @@ class Buckets extends Component {
       .catch(err => console.log(err));
   };
 
-  compBucket(id){
-    console.log("comp id =" + id)
+  updateBucket(id, key, value){
+    console.log(value)
+    API.updateBucket(id, key, value)
+    .then(res => this.loadBuckets())
+      .catch(err => console.log(err));
   }
 
   handleInputChange = event => {
@@ -89,6 +92,7 @@ class Buckets extends Component {
   render() {
     return (
       <Container fluid>
+      {console.log(this.state.bucketList)}
         <Row>
           <Col size="md-12">
             <Jumbotron className="bg-primary">
@@ -155,10 +159,9 @@ class Buckets extends Component {
                         {listItem.activity} by {listItem.author}
                       </strong>
                     </Link>
-                    <CompBtn onClick={()=> this.compBucket(listItem._id)}/>
-                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
-                    } />
-                    <AddBtn onClick={()=> this.addBucket(listItem._id)} />
+                    <CompBtn onClick={()=> this.updateBucket(listItem._id, "completed", !this.state.bucketList.find(item=> item._id===listItem._id).completed)}/>
+                    <DeleteBtn onClick={() => this.updateBucket(listItem._id, "recommended", !this.state.bucketList.find(item=> item._id===listItem._id).recommended)} />
+                    <AddBtn onClick={()=> this.updateBucket(listItem._id, "onBlist", !this.state.bucketList.find(item=> item._id===listItem._id).onBlist)} />
                   </ListItem>
                 ))}
               </List>

@@ -11,4 +11,8 @@ router
 .put(bucketListController.update)
 .delete(bucketListController.remove)
 
+router.route("/:id?/:key?")
+.put(bucketListController.update)
+
+
 module.exports = router

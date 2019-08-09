@@ -25,8 +25,9 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
+    req.query.value = req.query.value==="true";
     db.BLItem
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ _id: req.params.id}, {$set:{[req.query.type]: req.query.value}} )
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

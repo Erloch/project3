@@ -42,8 +42,6 @@ class Detail extends Component {
               <p>{this.state.bucketList.description}</p>
               <img src={this.state.bucketList.image} alt={this.state.bucketList.activity}/>
             </article>
-      {console.log("image: " + this.state.bucketList.image)}
-      {console.log("completed: " + this.state.bucketList.completed)}
         </Row>
         <Row>
           <Col size="md-2">
