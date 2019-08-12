@@ -29,9 +29,10 @@ const usersSchema = new Schema({
     type: Date,
     default: Date.now()
   },
-  todos: [{
+  bucketArray: [{
     type: Schema.Types.ObjectId,
-    ref: 'Todo'
+    ref: "BLItem",
+
   }]
 });
 
