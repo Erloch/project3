@@ -60,7 +60,9 @@ class YourList extends Component {
         API.getUserBucket(this.state.user._id).then(
             res => {
                 const completedItems = res.data.bucketArray.filter(listItem => listItem.completed);
-                const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed);
+                const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed).reverse();
+                // const reversed = incompleteItems.reverse();
+                
                 this.setState({
                     userID: res.data._id,
                     currentAuthor: res.data.username,
