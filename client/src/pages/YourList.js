@@ -10,6 +10,8 @@ import { Container, Row, Col } from 'reactstrap';
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import "./Bucket.css"
+
 
 class YourList extends Component {
     state = {
@@ -22,41 +24,84 @@ class YourList extends Component {
         author: "",
         description: "",
         image: "",
+        modal: false,
         currentAuthor: "",
-        modal: false
+        userID: ""
+
     };
 
     componentDidMount() {
         console.log("component did mount");
-        this.loadBuckets();
+        console.log(this.props)
         this.toggle = this.toggle.bind(this);
-    }
+        API.isLoggedIn().then(user => {
+            if (user.data.loggedIn) {
+                this.setState({
+                    loggedIn: true,
+                    user: user.data.user
+                }, () => {
+                    this.loadBuckets();
+                });
+            }
+        }).catch(err => {
+            console.log(err);
+        });
+        // push completed and incomplete items to respective arrays
 
+
+    }
     toggle() {
         this.setState(prevState => ({
             modal: !prevState.modal
         }));
     }
 
+    // loadBuckets = () => {
+    //     API.getBuckets()
+    //         .then(res => {
+    //             const completedItems = res.data.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
+    //             const incompleteItems = res.data.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended);
+    // const notRecommended = res.data.filter(listItem => !listItem.recommended);
+    //             this.setState({
+    //                 bucketList: res.data,
+    //                 activity: "",
+    //                 author: "",
+    //                 description: "",
+    //                 image: "",
+    //                 completedItems,
+    //                 incompleteItems,
+    //                 notRecommended
+    //             });
+    //         })
+    //         .catch(err => console.log(err));
+    // };
+
+
+
     loadBuckets = () => {
-        API.getBuckets()
-            .then(res => {
-                const completedItems = res.data.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
-                const incompleteItems = res.data.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended);
+        API.getUserBucket(this.state.user._id).then(
+            res => {
+                const completedItems = res.data.bucketArray.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
+                const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended).reverse();
                 const notRecommended = res.data.filter(listItem => !listItem.recommended);
+
                 this.setState({
-                    bucketList: res.data,
-                    activity: "",
-                    author: "",
-                    description: "",
-                    image: "",
+                    userID: res.data._id,
+                    currentAuthor: res.data.username,
                     completedItems,
                     incompleteItems,
-                    notRecommended
-                });
-            })
-            .catch(err => console.log(err));
-    };
+                    notRecommended,
+                    image: "",
+                    description: "",
+                    activity: ""
+                })
+            }
+        ).catch(err => console.log(err));
+    }
+
+    addBucket(id) {
+        console.log("add id =" + id)
+    }
 
     deleteBucket(id) {
         console.log("id = " + id)
@@ -72,6 +117,10 @@ class YourList extends Component {
             .catch(err => console.log(err));
     }
 
+    compBucket(id) {
+        console.log("comp id =" + id)
+    }
+
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -81,12 +130,14 @@ class YourList extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-        if (this.state.activity && this.state.author) {
+        if (this.state.activity) {
             API.saveBucket({
                 activity: this.state.activity,
-                author: this.state.author,
+                author: this.state.currentAuthor,
                 description: this.state.description,
-                image: this.state.image
+                date: this.state.date,
+                image: this.state.image,
+                userID: this.state.userID
             })
                 .then(() => this.loadBuckets())
                 .catch(err => console.log(err));
@@ -95,6 +146,8 @@ class YourList extends Component {
     };
 
     render() {
+        console.log(this.props);
+        console.log(this.state);
         return (
             <Container fluid>
                 <Row>
@@ -110,12 +163,7 @@ class YourList extends Component {
                                         name="activity"
                                         placeholder="Activity (required)"
                                     />
-                                    <Input
-                                        value={this.state.author}
-                                        onChange={this.handleInputChange}
-                                        name="author"
-                                        placeholder="Author (required)"
-                                    />
+
                                     <TextArea
                                         value={this.state.description}
                                         onChange={this.handleInputChange}
@@ -129,11 +177,11 @@ class YourList extends Component {
                                         placeholder="Pic (or it didn't happen)"
                                     />
                                     <FormBtn
-                                        disabled={!(this.state.author && this.state.activity)}
+                                        disabled={!(this.state.activity)}
                                         onClick={this.handleFormSubmit}
                                     >
                                         Submit Activity
-                                        </FormBtn>
+              </FormBtn>
                                 </form>
                             </ModalBody>
                             <ModalFooter>
@@ -141,6 +189,7 @@ class YourList extends Component {
                             </ModalFooter>
                         </Modal>
                     </div>
+
                 </Row>
                 <Row>
                     <Col sm="12" md={{ size: 6 }}>
@@ -148,7 +197,7 @@ class YourList extends Component {
                         <Jumbotron className="bg-info">
                             <h1 className="display-4 text-light">To Do Bucket Activities</h1>
                         </Jumbotron>
-                        <List>
+                        {/* <List>
                             {this.state.incompleteItems.map(listItem => (
                                 <ListItem key={listItem._id}>
                                     <Link to={"/buckets/" + listItem._id}>
@@ -159,9 +208,25 @@ class YourList extends Component {
                                     <CompBtn onClick={() => this.updateBucket(listItem._id, "completed", !this.state.bucketList.find(item => item._id === listItem._id).completed)} />
                                     <DeleteBtn onClick={() => this.updateBucket(listItem._id, "recommended", !this.state.bucketList.find(item => item._id === listItem._id).recommended)} />
                                     <AddBtn onClick={() => this.updateBucket(listItem._id, "onBlist", !this.state.bucketList.find(item => item._id === listItem._id).onBlist)} />
-                                </ListItem>)
+                                </ListItem>) */}
+                        {this.state.user && this.state.user.bucketArray.length ? (
+                            <List>
+                                {this.state.incompleteItems.map(listItem => (
+                                    <ListItem key={listItem._id}>
+                                        <Link to={"/buckets/" + listItem._id}>
+                                            <strong>
+                                                {listItem.activity} by {this.state.currentAuthor}
+                                            </strong>
+                                        </Link>
+                                        <CompBtn onClick={() => this.updateBucket(listItem._id, "completed", !this.state.bucketList.find(item => item._id === listItem._id).completed)} />
+                                        <DeleteBtn onClick={() => this.updateBucket(listItem._id, "recommended", !this.state.bucketList.find(item => item._id === listItem._id).recommended)} />
+                                        <AddBtn onClick={() => this.updateBucket(listItem._id, "onBlist", !this.state.bucketList.find(item => item._id === listItem._id).onBlist)} />
+                                    </ListItem>)
+                                )}
+                            </List>
+                        ) : (
+                                <h3>No Results to Display</h3>
                             )}
-                        </List>
                     </Col>
                     <Col sm="12" md={{ size: 6 }}>
                         <Jumbotron className="bg-info">

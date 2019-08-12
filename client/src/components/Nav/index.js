@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import "./style.css";
 
 import API from "../../utils/API";
 import {
@@ -57,7 +58,7 @@ export default class NavBar extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Bucket List</NavbarBrand>
+          <NavbarBrand href="/Buckets">Bucket List</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -75,35 +76,34 @@ export default class NavBar extends React.Component {
                 <DropdownMenu right>
                   {this.state.loggedIn ? (
                     <>
-                      <DropdownItem>
-                        <NavLink href="/profile">Profile</NavLink>
-                      </DropdownItem>
+
                       <DropdownItem>
                         <NavLink onClick={this.logout}>Logout</NavLink>
                       </DropdownItem>
+                      <DropdownItem>
+                        <Link to="/YourList">
+                          My Bucket List
+                    </Link>
+                      </DropdownItem>
+                      <DropdownItem>
+                        Completed
+                  </DropdownItem>
+                      <DropdownItem divider />
+                      <DropdownItem>
+                        Friends
+                  </DropdownItem>
                     </>
                   ) : (
                       <>
                         <DropdownItem>
-                          <NavLink href="/login">login</NavLink>
+                          <NavLink href="/">login</NavLink>
                         </DropdownItem>
                         <DropdownItem>
                           <NavLink href="/signup">signup</NavLink>
                         </DropdownItem>
                       </>
                     )}
-                  <DropdownItem>
-                    <Link to="/YourList">
-                      My Bucket List
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem>
-                    Completed
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Friends
-                  </DropdownItem>
+
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
