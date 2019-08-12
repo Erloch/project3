@@ -6,7 +6,6 @@ img{
 .modelbutt{
  background-color: white;
 }
-
 h2{
     color: black;
 }
@@ -23,7 +22,6 @@ article{
   margin-left: auto;
   margin-right: auto;
 }
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -48,7 +46,6 @@ body {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-
 .ModalHeader{
  text-align: center;
 }
