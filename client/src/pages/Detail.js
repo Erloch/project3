@@ -68,7 +68,7 @@ class Detail extends Component {
         <Row>
           <Col size="md">
             <div className="hvr-grow-shadow">
-            <Link to="/">← Back to your <br></br>← Bucket List!</Link>
+            <Link to="/YourList">← Back to your <br></br>← Bucket List!</Link>
             </div>
           </Col>
         </Row>

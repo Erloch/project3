@@ -16,6 +16,7 @@ class YourList extends Component {
     state = {
         bucketList: [],
         completedItems: [],
+        notRecomended: [],
         incompleteItems: [],
         skippedItems: [],
         activity: "",
@@ -61,38 +62,24 @@ class YourList extends Component {
             res => {
                 const completedItems = res.data.bucketArray.filter(listItem => listItem.completed);
                 const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed).reverse();
-                // const reversed = incompleteItems.reverse();
+                
+                // const completedItems = res.data.bucketArray.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
+                // const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended).reverse();
+                // const notRecommended = res.data.filter(listItem => !listItem.recommended);
+               
                 
                 this.setState({
                     userID: res.data._id,
                     currentAuthor: res.data.username,
                     completedItems,
                     incompleteItems,
+                    // notRecomended,
                 })
             }
         ).catch(err => console.log(err));    
     }
 
-    // loadBuckets = () => {
-    //     API.getBucket(this.state.userID)
-    //         .then(res => {
-    //             console.log("kittens2",res)
-    //             const completedItems = res.data.filter(listItem => listItem.completed);
-    //             const incompleteItems = res.data.filter(listItem => !listItem.completed);
-    //             this.setState({
-    //                 bucketList: res.data,
-    //                 activity: "",
-    //                 author: "",
-    //                 description: "",
-    //                 image: "",
-    //                 completedItems,
-    //                 incompleteItems,
-    //                 userID: this.state.userID
-
-    //             });
-    //         })
-    //         .catch(err => console.log(err));
-    // };
+   
 
     addBucket(id) {
         console.log("add id =" + id)

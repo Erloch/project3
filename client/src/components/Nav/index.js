@@ -58,7 +58,7 @@ export default class NavBar extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Bucket List</NavbarBrand>
+          <NavbarBrand href="/YourList">Bucket List</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -66,7 +66,7 @@ export default class NavBar extends React.Component {
                 <NavLink href="/feed">Feed</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">Bucket List Ideas</NavLink>
+                <NavLink href="/Buckets">Bucket List Ideas</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
 
