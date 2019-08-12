@@ -111,44 +111,45 @@ class Buckets extends Component {
                 <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
                 <ModalBody>
                 <form>
-              <Input
-                value={this.state.activity}
-                onChange={this.handleInputChange}
-                name="activity"
-                placeholder="Activity (required)"
-              />
-              <Input
-                value={this.state.author}
-                onChange={this.handleInputChange}
-                name="author"
-                placeholder="Author (required)"
-              />
-              <TextArea
-                value={this.state.description}
-                onChange={this.handleInputChange}
-                name="description"
-                placeholder="Description (Optional)"
-              />
-              <Input 
-              value={this.state.image}
-              onChange={this.handleInputChange}
-              name="image"
-              placeholder="Pic (or it didn't happen)"
-              />
-              <FormBtn
-                disabled={!(this.state.author && this.state.activity)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Activity
-              </FormBtn>
-            </form>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="secondary" onClick={this.toggle}>Close</Button>
-                </ModalFooter>
-              </Modal>
-              </div>
-
+                  <Input
+                    value={this.state.activity}
+                    onChange={this.handleInputChange}
+                    name="activity"
+                    placeholder="Activity (required)"
+                  />
+                  <Input
+                    value={this.state.author}
+                    onChange={this.handleInputChange}
+                    name="author"
+                    placeholder="Author (required)"
+                  />
+                  <TextArea
+                    value={this.state.description}
+                    onChange={this.handleInputChange}
+                    name="description"
+                    placeholder="Description (Optional)"
+                  />
+                  <Input
+                    value={this.state.image}
+                    onChange={this.handleInputChange}
+                    name="image"
+                    placeholder="Pic (or it didn't happen)"
+                  />
+                  <FormBtn
+                    disabled={!(this.state.author && this.state.activity)}
+                    onClick={this.handleFormSubmit}
+                  >
+                    Submit Activity
+                  </FormBtn>
+                </form>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="secondary" className="hvr-grow-shadow" onClick={this.toggle}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </div>
           <Col size="md-12">
             {this.state.bucketList.length ? (
               <List>
