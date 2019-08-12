@@ -161,7 +161,6 @@ class Buckets extends Component {
               </ModalFooter>
             </Modal>
           </div>
-
           <Col size="md-12">
             {this.state.bucketList.length ? (
               <List>

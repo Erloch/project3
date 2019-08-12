@@ -15,4 +15,6 @@ function CompBtn(props) {
     </span>
   );
 }
+
 export default CompBtn;
+

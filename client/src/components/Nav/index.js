@@ -48,7 +48,6 @@ export default class NavBar extends React.Component {
     })
   }
 
-
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
