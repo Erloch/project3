@@ -23,6 +23,7 @@ class Feed extends Component {
     modal: false
   };
   
+  
   componentDidMount() {
     this.loadBuckets();
     this.toggle = this.toggle.bind(this);

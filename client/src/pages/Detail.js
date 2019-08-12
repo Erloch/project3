@@ -6,7 +6,6 @@ import API from "../utils/API";
 import "./Detail.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-
 class Detail extends Component {
   state = {
     bucketList: {},
