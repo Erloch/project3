@@ -8,7 +8,8 @@ const bucketListSchema = new Schema({
     completed: { type:Boolean, default: false },
     recommended: {type: Boolean, default: true},
     onBlist: {type:Boolean, default: false},
-    date: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now },
+    userID:{ type: String, required: true }
     
 });
 const BLItem = mongoose.model("BLItem", bucketListSchema);

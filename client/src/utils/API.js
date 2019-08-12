@@ -26,6 +26,10 @@ export default {
         return axios.get("/api/users/logout")
     },
 
+    getUserBucket: function (id){
+        return axios.get(`/api/users/bucket/${id}`)
+    },
+
     getBuckets: function () {
         return axios.get('/api/buckets');
     }, 
@@ -41,6 +45,7 @@ export default {
     saveBucket : function (bucketData) {
         return axios.post ('/api/buckets', bucketData)
     },
+    
     getAllBuckets: function (bucketData) {
         return axios.post ("/api/buckets")
     }
