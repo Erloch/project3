@@ -24,7 +24,6 @@ class YourList extends Component {
         image: "",
         currentAuthor: "",
         modal: false
-
     };
 
     componentDidMount() {
@@ -185,7 +184,7 @@ class YourList extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md="6">
+                    <Col md={{ size: 6, offset: 3 }}>
                         <h3>Saved for later/Unrecommended</h3>
                         <List>
                             {this.state.notRecommended.map(listItem => (
