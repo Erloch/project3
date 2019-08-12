@@ -75,35 +75,34 @@ export default class NavBar extends React.Component {
                 <DropdownMenu right>
                   {this.state.loggedIn ? (
                     <>
-                      <DropdownItem>
-                        <NavLink href="/profile">Profile</NavLink>
-                      </DropdownItem>
+
                       <DropdownItem>
                         <NavLink onClick={this.logout}>Logout</NavLink>
                       </DropdownItem>
+                      <DropdownItem>
+                        <Link to="/YourList">
+                          My Bucket List
+                    </Link>
+                      </DropdownItem>
+                      <DropdownItem>
+                        Completed
+                  </DropdownItem>
+                      <DropdownItem divider />
+                      <DropdownItem>
+                        Friends
+                  </DropdownItem>
                     </>
                   ) : (
                       <>
                         <DropdownItem>
-                          <NavLink href="/login">login</NavLink>
+                          <NavLink href="/">login</NavLink>
                         </DropdownItem>
                         <DropdownItem>
                           <NavLink href="/signup">signup</NavLink>
                         </DropdownItem>
                       </>
                     )}
-                  <DropdownItem>
-                    <Link to="/YourList">
-                      My Bucket List
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem>
-                    Completed
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Friends
-                  </DropdownItem>
+
                 </DropdownMenu>
               </UncontrolledDropdown>
             </Nav>
