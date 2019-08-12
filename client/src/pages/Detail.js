@@ -24,7 +24,6 @@ class Detail extends Component {
       modal: !prevState.modal
     }));
   }
-
   render() {
     return (
       <>
