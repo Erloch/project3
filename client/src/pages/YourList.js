@@ -57,41 +57,24 @@ class YourList extends Component {
         }));
     }
 
-    // loadBuckets = () => {
-    //     API.getBuckets()
-    //         .then(res => {
-    //             const completedItems = res.data.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
-    //             const incompleteItems = res.data.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended);
-    // const notRecommended = res.data.filter(listItem => !listItem.recommended);
-    //             this.setState({
-    //                 bucketList: res.data,
-    //                 activity: "",
-    //                 author: "",
-    //                 description: "",
-    //                 image: "",
-    //                 completedItems,
-    //                 incompleteItems,
-    //                 notRecommended
-    //             });
-    //         })
-    //         .catch(err => console.log(err));
-    // };
-
-
 
     loadBuckets = () => {
         API.getUserBucket(this.state.user._id).then(
             res => {
-                const completedItems = res.data.bucketArray.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
-                const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended).reverse();
-                const notRecommended = res.data.filter(listItem => !listItem.recommended);
+
+                const completedItems = res.data.bucketArray.filter(listItem => listItem.completed);
+                const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed).reverse();
+
+                // const completedItems = res.data.bucketArray.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
+                // const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended).reverse();
+                // const notRecommended = res.data.filter(listItem => !listItem.recommended);
 
                 this.setState({
                     userID: res.data._id,
                     currentAuthor: res.data.username,
                     completedItems,
                     incompleteItems,
-                    notRecommended,
+                    // notRecommended,
                     image: "",
                     description: "",
                     activity: ""
