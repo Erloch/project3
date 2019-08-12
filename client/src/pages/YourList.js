@@ -10,7 +10,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import "./Bucket.css"
+import "./YourList.css"
 
 
 class YourList extends Component {
