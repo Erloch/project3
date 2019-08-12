@@ -1,127 +1,133 @@
-import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
-import CompBtn from "../components/CompBtn";
-import AddBtn from "../components/AddBtn"
-// import Jumbotron from "../components/Jumbotron";
-import { Jumbotron } from "reactstrap";
-import API from "../utils/API";
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import "./Bucket.css"
 
-class Feed extends Component {
-  state = {
-    bucketList: [],
-    activity: "",
-    author: "",
-    description: "",
-    image: "",
-    currentAuthor: "",
-    modal: false
-  };
-  
-  
-  componentDidMount() {
-    this.loadBuckets();
-    this.toggle = this.toggle.bind(this);
+import React from 'react';
+import { Card, Button, CardImg, CardTitle, CardText, CardColumns,
+ CardSubtitle, CardBody } from 'reactstrap';
+ import {Link} from "react-router-dom"
+
+const Feed = (props) => {
+  return (
+    <CardColumns>
+      <Card>
+        <CardImg top width="100%" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2208&q=80" alt="Card image cap" />
+        <CardBody>
+          <CardTitle>Camping at Arches National Park</CardTitle>
+          <CardSubtitle></CardSubtitle>
+          <CardSubtitle>Posted By: Daniel Garcia</CardSubtitle>
+          <CardText>Arches National Park is a national park in eastern Utah, United States. The park is adjacent to the Colorado River, north of Moab, Utah. More than 2,000 natural sandstone arches are located in the park, including the well-known Delicate Arch, as well as a variety of unique geological resources and formations. The park contains the highest density of natural arches in the world.</CardText>
+          <Link to="/YourList"><Button>Add to My List</Button></Link>
+          <div></div>
+          <Button>Contact the Author</Button>
+        </CardBody>
+      </Card>
     
-  }  
 
-  toggle() {
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
-  }
 
-  loadBuckets = () => {
-    API.getBuckets()
-      .then(res =>
-        this.setState({ bucketList: res.data, activity: "", author: "", description: "", image: ""})
-      )
-      .catch(err => console.log(err));
-  };
+<Card>
+  <CardImg top width="100%" src=" https://images.unsplash.com/photo-1483069125343-4ef290c07840?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2251&q=80(510 kB)
+" alt="Card image cap" />
+  <CardBody>
+    <CardTitle>Learn </CardTitle>
+    <CardSubtitle>Posted By: Robert Kowalski </CardSubtitle>
 
-  addBucket(id){
-    console.log("add id =" + id)
-  }
+    <CardText></CardText>
+    <Link to="/YourList"><Button>Add to My List</Button></Link>
+    <div></div>
+          <Button>Contact the Author</Button>
+  </CardBody>
+</Card>
 
-  deleteBucket(id) {
-    console.log("id = " + id)
-    API.deleteBucket(id)
-      .then(res => this.loadBuckets())
-      .catch(err => console.log(err));
-  };
 
-  compBucket(id){
-    console.log("comp id =" + id)
-  }
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+<Card>
+  <CardImg top width="100%" src="https://images.unsplash.com/photo-1532664189809-02133fee698d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1275&q=80(392 kB)
+" alt="Card image cap" />
+  <CardBody>
+    <CardTitle>Travel To Taj Mahal</CardTitle>
+    <CardSubtitle>Posted By: Daniel Garcia</CardSubtitle>
+  
+    <CardText>The Taj Mahal is an ivory-white marble mausoleum on the south bank of the Yamuna river in the Indian city of Agra. It was commissioned in 1632 by the Mughal emperor, Shah Jahan, to house the tomb of his favourite wife, Mumtaz Mahal.</CardText>
+    <Link to="/YourList"><Button>Add to My List</Button></Link>
+    <div></div>
+          <Button>Contact the Author</Button>
+  </CardBody>
+</Card>
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (this.state.activity && this.state.author) {
-      API.saveBucket({
-        activity: this.state.activity,
-        author: this.state.author,
-        description: this.state.description,
-        image: this.state.image
-      })
-        .then(res => this.loadBuckets())
-        .catch(err => console.log(err));
-    }
-  };
 
-  render() {
-    return (
-      <Container fluid>
-        <Row>
-          <Col size="md-12">
-            <Jumbotron className="bg-primary">
-              <h1 className="display">{this.state.bucketList.length ? (
-              <>
-                {this.state.bucketList[0].author}, would you like to see other buckets?
-              </>
-            ) : (
-                <>Please Sign In to add Bucket List Items</>
-              )}</h1>
-            </Jumbotron>
-          </Col>
-          
+<Card>
+  <CardImg top width="100%" src="https://images.unsplash.com/photo-1545168599-847c33ad81bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1275&q=80(311 kB)" alt="Card image cap" />
+  <CardBody>
+    <CardTitle>Explore the World by Overlanding</CardTitle>
+    <CardSubtitle>Posted BY: Robert Kowalski </CardSubtitle>
+   
+    <CardText>Overlanding is self-reliant overland travel to remote destinations where the journey is the principal goal.</CardText>
+    <Link to="/YourList"><Button>Add to My List</Button></Link>
+    <div></div>
+          <Button>Contact the Author</Button>
+  </CardBody>
+</Card>
 
-          <Col size="md-12">
-            {this.state.bucketList.length ? (
-              <List>
-                {this.state.bucketList.map(listItem => (
-                  <ListItem className="mt-2" key={listItem._id}>
-                    <Link to={"/buckets/" + listItem._id}>
-                      <strong>
-                        {listItem.activity} by {listItem.author}
-                      </strong>
-                    </Link>
-                    <CompBtn onClick={()=> this.compBucket(listItem._id)}/>
-                    <DeleteBtn onClick={() => this.deleteBucket(listItem._id)
-                    } />
-                    <AddBtn onClick={()=> this.addBucket(listItem._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-                <h3>No Results to Display</h3>
-              )}
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
-}
+<Card>
+  <CardImg top width="100%" src="https://images.unsplash.com/photo-1474623809196-26c1d33457cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2048&q=80(285 kB)
+" alt="Card image cap" />
+  <CardBody>
+    <CardTitle>Skydiving</CardTitle>
+    <CardSubtitle>Posted By: Jesus Christ</CardSubtitle>
+    <CardText></CardText>
+    <Link to="/YourList"><Button>Add to My List</Button></Link>
+  </CardBody>
+</Card>
 
-export default Feed;
+<Card>
+  <CardImg top width="100%" src="https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2269&q=80(488 kB)
+
+" alt="Card image cap" />
+  <CardBody>
+    <CardTitle>Travel to Japan </CardTitle>
+    <CardSubtitle>Posted By: Robert Kowalski </CardSubtitle>
+    <CardText>Japan is a sovereign island country in East Asia. Located in the Pacific Ocean, it lies off the eastern coast of the Asian mainland and stretches from the Sea of Okhotsk in the north to the East China Sea and China in the southwest..</CardText>
+    <Link to="/YourList"><Button>Add to My List</Button></Link>
+    <div></div>
+          <Button>Contact the Author</Button>
+  </CardBody>
+</Card>
+
+<Card>
+  <CardImg top width="100%" src="https://images.unsplash.com/photo-1551316679-9c6ae9dec224?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80
+
+" alt="Card image cap" />
+  <CardBody>
+    <CardTitle>Ride Elephants In Thiland </CardTitle>
+    <CardSubtitle>Posted by: Dan-Dan the Man</CardSubtitle>
+    <CardText>Elephants are large mammals of the family Elephantidae and the order Proboscidea. Three species are currently recognised: the African bush elephant, the African forest elephant, and the Asian elephant. Elephants are scattered throughout sub-Saharan Africa, South Asia, and Southeast Asia.</CardText>
+    <Link to="/YourList"><Button>Add to My List</Button></Link>
+    <div></div>
+          <Button>Contact the Author</Button>
+  </CardBody>
+</Card>
+
+<Card>
+  <CardImg top width="100%" src="https://images.unsplash.com/photo-1486911278844-a81c5267e227?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80(675 kB)
+" alt="Card image cap" />
+  <CardBody>
+    <CardTitle>Climb Mt. Everest </CardTitle>
+    <CardSubtitle>Posted By: Erich</CardSubtitle>
+    <CardText>Mount Everest, known in Nepali as Sagarmāthā and in Tibetan as Chomolungma, is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas. The international border between China and Nepal runs across its summit point.</CardText>
+    <Link to="/YourList"><Button>Add to My List</Button></Link>
+    <div></div>
+          <Button>Contact the Author</Button>
+  </CardBody>
+</Card>
+</CardColumns>
+
+
+
+
+
+  )}
+
+
+
+
+
+export default Feed
+
