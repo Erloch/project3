@@ -9,14 +9,13 @@ import { Container, Row, Col } from 'reactstrap';
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import "./Bucket.css"
+import "./YourList.css"
 
 
 class YourList extends Component {
     state = {
         bucketList: [],
         completedItems: [],
-        notRecomended: [],
         incompleteItems: [],
         skippedItems: [],
         activity: "",
@@ -62,24 +61,17 @@ class YourList extends Component {
             res => {
                 const completedItems = res.data.bucketArray.filter(listItem => listItem.completed);
                 const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed).reverse();
-                
-                // const completedItems = res.data.bucketArray.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
-                // const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended).reverse();
-                // const notRecommended = res.data.filter(listItem => !listItem.recommended);
-               
+                // const reversed = incompleteItems.reverse();
                 
                 this.setState({
                     userID: res.data._id,
                     currentAuthor: res.data.username,
                     completedItems,
                     incompleteItems,
-                    // notRecomended,
                 })
             }
         ).catch(err => console.log(err));    
     }
-
-   
 
     addBucket(id) {
         console.log("add id =" + id)

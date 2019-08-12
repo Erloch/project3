@@ -1,0 +1,13 @@
+#backgroundImage {
+    background: url("https://www.publicdomainpictures.net/pictures/50000/velka/sunset-background-1371188975Z2h.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    height: auto;
+    min-height: calc(100vh - 60px);
+    
+}
+
+#openingText {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
