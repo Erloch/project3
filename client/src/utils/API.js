@@ -42,6 +42,9 @@ export default {
     updateBucket: function (id, key, value){
         return axios.put(`/api/buckets/${id}?type=${key}&value=${value}`)
     },
+    // updateBucket: function (id){
+    //     return axios.put("api/buckets/" + id)
+    // },
     saveBucket : function (bucketData) {
         return axios.post ('/api/buckets', bucketData)
     },
