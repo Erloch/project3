@@ -3,7 +3,6 @@
     margin: auto;
     margin-bottom: 10px;
 }
-
 h1{
     color: white;
 }
@@ -29,7 +28,6 @@ h1{
   border: 3px solid green;
   padding: 10px;
 }
-
 #backgroundImage {
     background: url("https://www.publicdomainpictures.net/pictures/50000/velka/sunset-background-1371188975Z2h.jpg");
     background-size: cover;
@@ -39,11 +37,6 @@ h1{
     min-height: calc(100vh - 60px);
     
 }
-​
 #openingText {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
-
-
-
-
