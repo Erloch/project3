@@ -3,7 +3,6 @@ img{
   height: auto;
   margin: auto;
 }
-
 .modelbutt{
  background-color: white;
 }
@@ -20,8 +19,6 @@ article{
   margin-left: auto;
   margin-right: auto;
 }
-
-
 
 body {
   margin: 0;
@@ -46,4 +43,8 @@ body {
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.ModalHeader{
+ text-align: center;
 }

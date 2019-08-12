@@ -5,16 +5,13 @@ import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 import "./Detail.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { Input, TextArea, FormBtn } from "../components/Form";
+
 
 class Detail extends Component {
   state = {
     bucketList: {},
     modal: false
   };
-  // Add code to get the book with an _id equal to the id in the route param
-  // e.g. http://localhost:3000/books/:id
-  // The book id for this route can be accessed using this.props.match.params.id
 
   componentDidMount(){
     API.getBucket(this.props.match.params.id)
@@ -31,7 +28,6 @@ class Detail extends Component {
   render() {
     return (
       <>
-       
       <Container fluid>
         <Row>
           <Col size="md">
@@ -67,21 +63,16 @@ class Detail extends Component {
               </ModalFooter>
             </Modal>
           </div>
-              
             </article>
-
-            
         </Row>
         <Row>
           <Col size="md">
             <div className="hvr-grow-shadow">
-
             <Link to="/">← Back to your <br></br>← Bucket List!</Link>
             </div>
           </Col>
         </Row>
       </Container>
-      
       </>
     );
   }
