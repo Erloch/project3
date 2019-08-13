@@ -39,13 +39,11 @@ class Buckets extends Component {
   loadBuckets = () => {
     API.getBuckets()
       .then(res =>
-
         this.setState({
           bucketList: res.data,
           activity: "",
           author: "",
           description: "",
-
           image: ""
         })
       )

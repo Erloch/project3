@@ -166,7 +166,7 @@ class YourList extends Component {
                                         onClick={this.handleFormSubmit}
                                     >
                                         Submit Activity
-              </FormBtn>
+                                    </FormBtn>
                                 </form>
                             </ModalBody>
                             <ModalFooter>
