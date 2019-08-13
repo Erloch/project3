@@ -143,7 +143,7 @@ class Buckets extends Component {
             image: match.image,
             userID: this.state.userID
         })
-            // .then(() => this.loadBuckets())
+            .then(() => this.props.history.push("/YourList"))
             .catch(err => console.log(err));
     
     
