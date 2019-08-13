@@ -44,7 +44,6 @@ class Buckets extends Component {
             },
             () => {
               this.loadBuckets();
-              this.assignUser();
             }
           );
         }
@@ -59,7 +58,7 @@ class Buckets extends Component {
       modal: !prevState.modal
     }));
   }
-  assignUser = ()=> {
+  loadBuckets = ()=> {
     API.getUserBucket(this.state.user._id)
       .then(res => {
         const completedItems = res.data.bucketArray.filter(
@@ -75,6 +74,7 @@ class Buckets extends Component {
           incompleteItems,
           image: "",
           description: "",
+          bucketList: res.data.bucketArray,
           activity: ""
         });
       })
