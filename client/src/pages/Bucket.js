@@ -68,17 +68,11 @@ class Buckets extends Component {
         const incompleteItems = res.data.bucketArray
           .filter(listItem => !listItem.completed)
           .reverse();
-
-        // const completedItems = res.data.bucketArray.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
-        // const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended).reverse();
-        // const notRecommended = res.data.filter(listItem => !listItem.recommended);
-
         this.setState({
           userID: res.data._id,
           currentAuthor: res.data.username,
           completedItems,
           incompleteItems,
-          // notRecommended,
           image: "",
           description: "",
           activity: ""
@@ -193,9 +187,9 @@ class Buckets extends Component {
               <h1 className="display">
                 {this.state.currentAuthor ? (
                   <>
-                   {/* Checkout what others are adding to their lists! */}
-                    {this.state.currentAuthor}, what would you like to
-                    do?
+                   Checkout what others are adding to their lists!
+                    {/* {this.state.currentAuthor}, what would you like to
+                    do? */}
                   </>
                 ) : (
                   <>Please Sign In to add Bucket List Items</>
@@ -235,7 +229,7 @@ class Buckets extends Component {
             )}
           </Col>
         </Row>
-        
+        {this.state.currentAuthor ? ( <>
           <br></br>
         <div className="modelbuttB">
                 <Button color="success" onClick={this.toggle}>
@@ -284,7 +278,8 @@ class Buckets extends Component {
                     </Button>
                   </ModalFooter>
                 </Modal>
-              </div>
+        </div>
+        </>) : (<div></div>)}
       </Container>
     );
   }
