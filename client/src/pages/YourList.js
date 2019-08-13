@@ -68,19 +68,20 @@ class YourList extends Component {
                 // const completedItems = res.data.bucketArray.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
                 // const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended).reverse();
                 // const notRecommended = res.data.filter(listItem => !listItem.recommended);
-
+                console.log("User Data: ", res.data);
                 this.setState({
                     userID: res.data._id,
                     currentAuthor: res.data.username,
                     completedItems,
                     incompleteItems,
                     // notRecommended,
+                    bucketList: res.data.bucketArray,
                     image: "",
                     description: "",
                     activity: ""
                 })
             }
-        ).catch(err => console.log(err));
+        ).catch(err => console.log(err)); 
     }
 
     addBucket(id) {

@@ -7,7 +7,7 @@ const bucketListSchema = new Schema({
     image: String,
     completed: { type:Boolean, default: false },
     recommended: {type: Boolean, default: true},
-    onBlist: {type:Boolean, default: false},
+    onBlist: {type:Boolean, default: true},
     date: { type: Date, default: Date.now },
     userID:{ type: String, required: true }
     
