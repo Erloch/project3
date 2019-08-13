@@ -61,15 +61,15 @@ export default class NavBar extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/feed">Feed</NavLink>
+                <NavLink href="/feed">Social</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/Buckets">Bucket List Ideas</NavLink>
+                <NavLink href="/Buckets">Feed</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
 
                 <DropdownToggle nav caret>
-                  Profile
+                  Logout
                 </DropdownToggle>
                 <DropdownMenu right>
                   {this.state.loggedIn ? (
@@ -78,18 +78,18 @@ export default class NavBar extends React.Component {
                       <DropdownItem>
                         <NavLink onClick={this.logout}>Logout</NavLink>
                       </DropdownItem>
-                      <DropdownItem>
+                      {/* <DropdownItem>
                         <Link to="/YourList">
-                          My Bucket List
+                          Your Bucket
                     </Link>
-                      </DropdownItem>
-                      <DropdownItem>
+                      </DropdownItem> */}
+                      {/* <DropdownItem>
                         Completed
                   </DropdownItem>
                       <DropdownItem divider />
                       <DropdownItem>
                         Friends
-                  </DropdownItem>
+                  </DropdownItem> */}
                     </>
                   ) : (
                       <>

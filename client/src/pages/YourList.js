@@ -136,9 +136,9 @@ class YourList extends Component {
             <Container fluid>
                 <Row>
                     <div className="modelbutt">
-                        <Button color="success" onClick={this.toggle}>Create Your Own!</Button>
+                        <Button color="success" onClick={this.toggle}>Add Your Own!</Button>
                         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                            <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
+                            <ModalHeader toggle={this.toggle}>What Would You Love To Do!</ModalHeader>
                             <ModalBody>
                                 <form>
                                     <Input
@@ -179,7 +179,7 @@ class YourList extends Component {
                     <Col sm="12" md={{ size: 6 }}>
 
                         <Jumbotron className="bg-info">
-                            <h1 className="display-4 text-light">To Do Bucket Activities</h1>
+                            <h1 className="display-4 text-light">Your Bucket List!</h1>
                         </Jumbotron>
                         {/* <List>
                             {this.state.incompleteItems.map(listItem => (
@@ -199,12 +199,12 @@ class YourList extends Component {
                                     <ListItem key={listItem._id}>
                                         <Link to={"/buckets/" + listItem._id}>
                                             <strong>
-                                                {listItem.activity} by {this.state.currentAuthor}
+                                                {listItem.activity}
                                             </strong>
                                         </Link>
                                         <CompBtn onClick={() => this.updateBucket(listItem._id, "completed", !this.state.bucketList.find(item => item._id === listItem._id).completed)} />
                                         <DeleteBtn onClick={() => this.updateBucket(listItem._id, "recommended", !this.state.bucketList.find(item => item._id === listItem._id).recommended)} />
-                                        <AddBtn onClick={() => this.updateBucket(listItem._id, "onBlist", !this.state.bucketList.find(item => item._id === listItem._id).onBlist)} />
+                                        {/* <AddBtn onClick={() => this.updateBucket(listItem._id, "onBlist", !this.state.bucketList.find(item => item._id === listItem._id).onBlist)} /> */}
                                     </ListItem>)
                                 )}
                             </List>
@@ -221,10 +221,10 @@ class YourList extends Component {
                                 <ListItem key={listItem._id}>
                                     <Link to={"/buckets/" + listItem._id}>
                                         <strong>
-                                            {listItem.activity} by {listItem.author}
+                                            {listItem.activity}
                                         </strong>
                                     </Link>
-                                    <CompBtn onClick={() => this.updateBucket(listItem._id, "completed", !this.state.bucketList.find(item => item._id === listItem._id).completed)} />
+                                    {/* <CompBtn onClick={() => this.updateBucket(listItem._id, "completed", !this.state.bucketList.find(item => item._id === listItem._id).completed)} /> */}
                                     <DeleteBtn onClick={() => this.updateBucket(listItem._id, "recommended", !this.state.bucketList.find(item => item._id === listItem._id).recommended)} />
                                     <AddBtn onClick={() => this.updateBucket(listItem._id, "onBlist", !this.state.bucketList.find(item => item._id === listItem._id).onBlist)} />
                                 </ListItem>)
@@ -232,7 +232,7 @@ class YourList extends Component {
                         </List>
                     </Col>
                 </Row>
-                <Row>
+                {/* <Row>
                     <Col md={{ size: 6, offset: 3 }}>
                         <h3>Saved for later/Unrecommended</h3>
                         <List>
@@ -250,7 +250,7 @@ class YourList extends Component {
                             )}
                         </List>
                     </Col>
-                </Row>
+                </Row> */}
             </Container>
         );
     }

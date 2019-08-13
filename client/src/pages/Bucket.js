@@ -12,6 +12,7 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "./Bucket.css";
 import ReactTooltip from "react-tooltip";
+import YouList from "./YourList";
 
 class Buckets extends Component {
   state = {
@@ -22,8 +23,15 @@ class Buckets extends Component {
     image: "",
     currentAuthor: "",
     modal: false,
-    userID: this.props.userID
+    userID: ""
   };
+
+  // activity: this.state.activity,
+  // author: this.state.currentAuthor,
+  // description: this.state.description,
+  // date: this.state.date,
+  // image: this.state.image,
+  // userID: this.state.userID
 
   componentDidMount() {
     this.loadBuckets();
@@ -45,12 +53,22 @@ class Buckets extends Component {
           activity: "",
           author: "",
           description: "",
-
+          userID: res.data._id,
           image: ""
         })
       )
       .catch(err => console.log(err));
-  };
+    
+    API.isLoggedIn().then(user => {
+      this.setState({
+        userID: user.data.user._id
+      })
+    })
+      .catch(err => {
+      console.log(err);
+      });
+  }
+
 
   addBucket(id) {
     console.log("add id =" + id);
@@ -69,6 +87,31 @@ class Buckets extends Component {
       .then(res => this.loadBuckets())
       .catch(err => console.log(err));
   }
+
+
+  
+  // Below method is for adding favorite to my list
+  handleFavoriteSubmit = event => {
+    event.preventDefault();
+    
+    const clickedBtnID = event.currentTarget.getAttribute('buttonid');
+    
+    const match = this.state.bucketList.filter(item => clickedBtnID === item._id)[0]
+        console.log(this.state)
+        console.log(match)
+ API.saveBucket({
+            activity: match.activity,
+            author: match.author,
+            description: match.description,
+            date: match.date,
+            image: match.image,
+            userID: this.state.userID
+        })
+            // .then(() => this.loadBuckets())
+            .catch(err => console.log(err));
+    
+    
+};
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -101,8 +144,7 @@ class Buckets extends Component {
               <h1 className="display">
                 {this.state.bucketList.length ? (
                   <>
-                    {this.state.bucketList[0].author}, what would you like to
-                    do?
+                   Checkout what others are adding to their lists!
                   </>
                 ) : (
                   <>Please Sign In to add Bucket List Items</>
@@ -110,57 +152,7 @@ class Buckets extends Component {
               </h1>
             </Jumbotron>
           </Col>
-          <div className="modelbutt">
-            <Button color="success" className="hvr-grow-shadow" onClick={this.toggle}>
-              Create Your Own!
-            </Button>
-            <Modal
-              isOpen={this.state.modal}
-              toggle={this.toggle}
-              className={this.props.className}
-            >
-              <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
-              <ModalBody>
-                <form>
-                  <Input
-                    value={this.state.activity}
-                    onChange={this.handleInputChange}
-                    name="activity"
-                    placeholder="Activity (required)"
-                  />
-                  <Input
-                    value={this.state.author}
-                    onChange={this.handleInputChange}
-                    name="author"
-                    placeholder="Author (required)"
-                  />
-                  <TextArea
-                    value={this.state.description}
-                    onChange={this.handleInputChange}
-                    name="description"
-                    placeholder="Description (Optional)"
-                  />
-                  <Input
-                    value={this.state.image}
-                    onChange={this.handleInputChange}
-                    name="image"
-                    placeholder="Pic (or it didn't happen)"
-                  />
-                  <FormBtn
-                    disabled={!(this.state.author && this.state.activity)}
-                    onClick={this.handleFormSubmit}
-                  >
-                    Submit Activity
-                  </FormBtn>
-                </form>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="secondary" className="hvr-grow-shadow" onClick={this.toggle}>
-                  Close
-                </Button>
-              </ModalFooter>
-            </Modal>
-          </div>
+          
           <Col size="md-12">
             {this.state.bucketList.length ? (
               <List>
@@ -176,39 +168,12 @@ class Buckets extends Component {
                         </ReactTooltip>
                       </strong>
                     </Link>
-                    <CompBtn
-                      onClick={() =>
-                        this.updateBucket(
-                          listItem._id,
-                          "completed",
-                          !this.state.bucketList.find(
-                            item => item._id === listItem._id
-                          ).completed
-                        )
-                      }
-                    />
-                    <DeleteBtn
-                      onClick={() =>
-                        this.updateBucket(
-                          listItem._id,
-                          "recommended",
-                          !this.state.bucketList.find(
-                            item => item._id === listItem._id
-                          ).recommended
-                        )
-                      }
-                    />
+                    
                     <AddBtn
-                      onClick={() =>
-                        this.updateBucket(
-                          listItem._id,
-                          "onBlist",
-                          !this.state.bucketList.find(
-                            item => item._id === listItem._id
-                          ).onBlist
-                        )
-                      }
-                    />
+                      buttonID={listItem._id}
+                      onClick={this.handleFavoriteSubmit}
+                      
+                />
                   </ListItem>
                 ))}
               </List>
