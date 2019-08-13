@@ -129,7 +129,7 @@ class YourList extends Component {
                 .catch(err => console.log(err));
         }
         this.toggle();
-    };
+    }
 
     render() {
         console.log(this.props);
