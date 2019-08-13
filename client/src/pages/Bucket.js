@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import DeleteBtn from "../components/DeleteBtn";
 import CompBtn from "../components/CompBtn";
 import AddBtn from "../components/AddBtn";
-// import Jumbotron from "../components/Jumbotron";
 import { Jumbotron } from "reactstrap";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
@@ -16,20 +15,42 @@ import ReactTooltip from "react-tooltip";
 class Buckets extends Component {
   state = {
     bucketList: [],
+    onBList: [],
+    completedItems: [],
+    incompleteItems: [],
+    notRecommended: [],
     activity: "",
     author: "",
     description: "",
     image: "",
-    currentAuthor: "",
     modal: false,
-    userID: this.props.userID
+    currentAuthor: "",
+    userID: ""
   };
 
   componentDidMount() {
-    this.loadBuckets();
+    console.log("component did mount");
+    console.log(this.props);
     this.toggle = this.toggle.bind(this);
+    API.isLoggedIn()
+      .then(user => {
+        if (user.data.loggedIn) {
+          this.setState(
+            {
+              loggedIn: true,
+              user: user.data.user
+            },
+            () => {
+              this.loadBuckets();
+            }
+          );
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    // push completed and incomplete items to respective arrays
   }
-
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
@@ -37,18 +58,30 @@ class Buckets extends Component {
   }
 
   loadBuckets = () => {
-    API.getBuckets()
-      .then(res =>
+    API.getUserBucket(this.state.user._id)
+      .then(res => {
+        const completedItems = res.data.bucketArray.filter(
+          listItem => listItem.completed
+        );
+        const incompleteItems = res.data.bucketArray
+          .filter(listItem => !listItem.completed)
+          .reverse();
+
+        // const completedItems = res.data.bucketArray.filter(listItem => listItem.completed && listItem.onBlist && listItem.recommended);
+        // const incompleteItems = res.data.bucketArray.filter(listItem => !listItem.completed && listItem.onBlist && listItem.recommended).reverse();
+        // const notRecommended = res.data.filter(listItem => !listItem.recommended);
 
         this.setState({
-          bucketList: res.data,
-          activity: "",
-          author: "",
+          userID: res.data._id,
+          currentAuthor: res.data.username,
+          completedItems,
+          incompleteItems,
+          // notRecommended,
+          image: "",
           description: "",
-
-          image: ""
-        })
-      )
+          activity: ""
+        });
+      })
       .catch(err => console.log(err));
   };
 
@@ -70,6 +103,10 @@ class Buckets extends Component {
       .catch(err => console.log(err));
   }
 
+  compBucket(id) {
+    console.log("comp id =" + id);
+  }
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -79,16 +116,19 @@ class Buckets extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.activity && this.state.author) {
+    if (this.state.activity) {
       API.saveBucket({
         activity: this.state.activity,
-        author: this.state.author,
+        author: this.state.currentAuthor,
         description: this.state.description,
-        image: this.state.image
+        date: this.state.date,
+        image: this.state.image,
+        userID: this.state.userID
       })
-        .then(res => this.loadBuckets())
+        .then(() => this.loadBuckets())
         .catch(err => console.log(err));
     }
+    this.toggle();
   };
 
   render() {
@@ -111,56 +151,53 @@ class Buckets extends Component {
             </Jumbotron>
           </Col>
           <div className="modelbutt">
-            <Button color="success" className="hvr-grow-shadow" onClick={this.toggle}>
-              Create Your Own!
-            </Button>
-            <Modal
-              isOpen={this.state.modal}
-              toggle={this.toggle}
-              className={this.props.className}
-            >
-              <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
-              <ModalBody>
-                <form>
-                  <Input
-                    value={this.state.activity}
-                    onChange={this.handleInputChange}
-                    name="activity"
-                    placeholder="Activity (required)"
-                  />
-                  <Input
-                    value={this.state.author}
-                    onChange={this.handleInputChange}
-                    name="author"
-                    placeholder="Author (required)"
-                  />
-                  <TextArea
-                    value={this.state.description}
-                    onChange={this.handleInputChange}
-                    name="description"
-                    placeholder="Description (Optional)"
-                  />
-                  <Input
-                    value={this.state.image}
-                    onChange={this.handleInputChange}
-                    name="image"
-                    placeholder="Pic (or it didn't happen)"
-                  />
-                  <FormBtn
-                    disabled={!(this.state.author && this.state.activity)}
-                    onClick={this.handleFormSubmit}
-                  >
-                    Submit Activity
-                  </FormBtn>
-                </form>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="secondary" className="hvr-grow-shadow" onClick={this.toggle}>
-                  Close
+                <Button color="success" onClick={this.toggle}>
+                  Create Your Own!
                 </Button>
-              </ModalFooter>
-            </Modal>
-          </div>
+                <Modal
+                  isOpen={this.state.modal}
+                  toggle={this.toggle}
+                  className={this.props.className}
+                >
+                  <ModalHeader toggle={this.toggle}>
+                    Create Your Own!
+                  </ModalHeader>
+                  <ModalBody>
+                    <form>
+                      <Input
+                        value={this.state.activity}
+                        onChange={this.handleInputChange}
+                        name="activity"
+                        placeholder="Activity (required)"
+                      />
+
+                      <TextArea
+                        value={this.state.description}
+                        onChange={this.handleInputChange}
+                        name="description"
+                        placeholder="Description (Optional)"
+                      />
+                      <Input
+                        value={this.state.image}
+                        onChange={this.handleInputChange}
+                        name="image"
+                        placeholder="Pic (or it didn't happen)"
+                      />
+                      <FormBtn
+                        disabled={!this.state.activity}
+                        onClick={this.handleFormSubmit}
+                      >
+                        Submit Activity
+                      </FormBtn>
+                    </form>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="secondary" onClick={this.toggle}>
+                      Close
+                    </Button>
+                  </ModalFooter>
+                </Modal>
+              </div>
           <Col size="md-12">
             {this.state.bucketList.length ? (
               <List>
