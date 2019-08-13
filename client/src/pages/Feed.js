@@ -14,6 +14,7 @@ import API from "../utils/API";
 import { Link } from "react-router-dom";
 import "./Feed.css";
 import CompBtn from "../components/CompBtn";
+import { FaCheck } from "react-icons/fa";
 
 class Feed extends Component {
   state = {
@@ -48,7 +49,7 @@ class Feed extends Component {
             <CardBody>
               <CardTitle>
                 <h3>
-                Camping at Arches National Park <CompBtn/>
+                Camping at Arches National Park <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />
                 </h3></CardTitle>
               <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Daniel Garcia</a> </CardSubtitle>
               <CardText>
@@ -73,7 +74,7 @@ class Feed extends Component {
               alt="Card image cap"
             />
             <CardBody>
-              <CardTitle><h3>Learn <CompBtn/></h3></CardTitle>
+              <CardTitle><h3>Learn <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" /></h3></CardTitle>
               <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Robert Kowalski</a> </CardSubtitle>
               <CardText>
                 Mount Everest, known in Nepali as Sagarmāthā and in Tibetan as
@@ -98,7 +99,7 @@ class Feed extends Component {
               alt="Card image cap"
             />
             <CardBody>
-              <CardTitle> <h3>Travel To Taj Maha<CompBtn/></h3></CardTitle>
+              <CardTitle> <h3>Travel To Taj Maha <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />></h3></CardTitle>
               <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Daniel Garcia</a> </CardSubtitle>
               <CardText>
                 The Taj Mahal is an ivory-white marble mausoleum on the south
@@ -124,7 +125,7 @@ class Feed extends Component {
             <CardBody>
               <CardTitle>
                 <h3>
-                Explore the World by Overlanding<CompBtn/>
+                Explore the World by Overlanding <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />
                 </h3></CardTitle>
               <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Robert Kowalski</a> </CardSubtitle>
               <CardText>
@@ -151,7 +152,7 @@ class Feed extends Component {
             <CardBody>
               <CardTitle>
                  <h3>
-                Skydiving<CompBtn/>
+                Skydiving <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />
                 </h3></CardTitle>
               <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Jesus Christ</a> </CardSubtitle>
               <CardText>
@@ -178,7 +179,7 @@ class Feed extends Component {
             <CardBody>
               <CardTitle>
               <h3>
-                Travel to Japan <CompBtn/>
+                Travel to Japan <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />
                 </h3></CardTitle>
               <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Robert Kowalski</a> </CardSubtitle>
               <CardText>
@@ -205,7 +206,7 @@ class Feed extends Component {
             <CardBody>
               <CardTitle>
                 <h3>
-                Ride Elephants In Thiland  <CompBtn/>
+                Ride Elephants In Thiland  <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />
                 </h3></CardTitle>
               <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Dan The Man</a> </CardSubtitle>
               <CardText>
@@ -232,7 +233,7 @@ class Feed extends Component {
             <CardBody>
               <CardTitle>
                 <h3>
-                Climb Mt. Everest  <CompBtn/>
+                Climb Mt. Everest  <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />
                 </h3></CardTitle>
               <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Erich</a> </CardSubtitle>
               <CardText>
@@ -259,7 +260,7 @@ class Feed extends Component {
             <CardBody>
               <CardTitle>
                 <h3>
-                Climb Your Mom  <CompBtn/>
+                Climb Your Mom  <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />
                 </h3></CardTitle>
               <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Erich</a> </CardSubtitle>
               <CardText>
