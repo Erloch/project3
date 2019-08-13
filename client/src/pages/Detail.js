@@ -44,7 +44,7 @@ class Detail extends Component {
               <h2>Description</h2>
               <p>{this.state.bucketList.description}</p>
               <div className="modelbutt">
-              <img src={this.state.bucketList.image} alt={this.state.bucketList.activity} className="hvr-grow-shadow" onClick={this.toggle}/>
+              <img src={this.state.bucketList.image || "https://media.giphy.com/media/l2Je0WawqkU6QnT5C/giphy.gif"} alt={this.state.bucketList.activity} className="hvr-grow-shadow" onClick={this.toggle}/>
             <Modal
               isOpen={this.state.modal}
               toggle={this.toggle}

@@ -41,7 +41,6 @@ class Buckets extends Component {
             },
             () => {
               this.loadBuckets();
-              this.assignUser();
             }
           );
         }
@@ -56,7 +55,7 @@ class Buckets extends Component {
       modal: !prevState.modal
     }));
   }
-  assignUser = ()=> {
+  loadBuckets = ()=> {
     API.getUserBucket(this.state.user._id)
       .then(res => {
         const completedItems = res.data.bucketArray.filter(
@@ -78,25 +77,12 @@ class Buckets extends Component {
           // notRecommended,
           image: "",
           description: "",
+          bucketList: res.data.bucketArray,
           activity: ""
         });
       })
       .catch(err => console.log(err));
   }
-
-  loadBuckets = () => {
-    API.getBuckets()
-      .then(res =>
-        this.setState({
-          bucketList: res.data,
-          activity: "",
-          author: "",
-          description: "",
-          image: ""
-        })
-      )
-      .catch(err => console.log(err));
-  };
 
   addBucket(id) {
     console.log("add id =" + id);
@@ -211,6 +197,7 @@ class Buckets extends Component {
                             item => item._id === listItem._id
                           ).onBlist
                         )
+                        
                       }
                     />
                   </ListItem>
