@@ -149,11 +149,11 @@ class Buckets extends Component {
             image: match.image,
             userID: this.state.userID
         })
-            // .then(() => this.loadBuckets())
+            .then(() => this.props.history.push("/YourList"))
             .catch(err => console.log(err));
-    
-    
 };
+
+
   compBucket(id) {
     console.log("comp id =" + id);
   }
@@ -219,12 +219,14 @@ class Buckets extends Component {
                         </ReactTooltip>
                       </strong>
                     </Link>
-                    
+
+                   
                     <AddBtn
                       buttonID={listItem._id}
                       onClick={this.handleFavoriteSubmit}
-                      
-                />
+                      />
+                    
+
                   </ListItem>
                 ))}
               </List>

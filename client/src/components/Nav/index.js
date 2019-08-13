@@ -78,18 +78,7 @@ export default class NavBar extends React.Component {
                       <DropdownItem>
                         <NavLink onClick={this.logout}>Logout</NavLink>
                       </DropdownItem>
-                      {/* <DropdownItem>
-                        <Link to="/YourList">
-                          Your Bucket
-                    </Link>
-                      </DropdownItem> */}
-                      {/* <DropdownItem>
-                        Completed
-                  </DropdownItem>
-                      <DropdownItem divider />
-                      <DropdownItem>
-                        Friends
-                  </DropdownItem> */}
+                      
                     </>
                   ) : (
                       <>
