@@ -234,7 +234,7 @@ class YourList extends Component {
           </Row>
           <Row>
             <div className="modelbutt">
-              <Button color="success" onClick={this.toggle}>
+              <Button color="primary" onClick={this.toggle}>
                 Create Your Own!
               </Button>
               <Modal

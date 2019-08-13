@@ -55,7 +55,7 @@ class Detail extends Component {
               <img src={this.state.bucketList.image} alt={this.state.bucketList.activity}></img>
               </ModalBody>
               <ModalFooter>
-                <Button color="secondary" className="hvr-grow-shadow" onClick={this.toggle}>
+                <Button color="primary" className="hvr-grow-shadow" onClick={this.toggle}>
                   Close
                 </Button>
               </ModalFooter>
@@ -66,7 +66,7 @@ class Detail extends Component {
         <Row>
           <Col size="md">
             <div className="hvr-grow-shadow">
-            <Link to="/YourList">← Back to your <br></br>← Bucket List!</Link>
+            <Link to="/YourList"><Button color="primary">← Bucket List!</Button></Link>
             </div>
           </Col>
         </Row>

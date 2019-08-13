@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
-import CompBtn from "../components/CompBtn";
 import AddBtn from "../components/AddBtn";
-import { Jumbotron } from "reactstrap";
+import Jumbotron from "./../components/Jumbotron/index";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
@@ -11,7 +9,6 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "./Bucket.css";
 import ReactTooltip from "react-tooltip";
-import YouList from "./YourList";
 
 class Buckets extends Component {
   state = {
@@ -25,7 +22,8 @@ class Buckets extends Component {
     description: "",
     image: "",
     modal: false,
-    userID: ""
+    userID: "",
+    currentAuthor: ""
   };
 
  
@@ -188,8 +186,8 @@ class Buckets extends Component {
                 {this.state.currentAuthor ? (
                   <>
                    Checkout what others are adding to their lists!
-                    {/* {this.state.currentAuthor}, what would you like to
-                    do? */}
+                    {this.state.currentAuthor}, what would you like to
+                    do?
                   </>
                 ) : (
                   <>Please Sign In to add Bucket List Items</>

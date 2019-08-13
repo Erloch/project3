@@ -13,8 +13,9 @@ import {
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import "./Feed.css";
-import CompBtn from "../components/CompBtn";
 import { FaCheck } from "react-icons/fa";
+import Jumbotron from "./../components/Jumbotron/index";
+import "./Feed.css"
 
 class Feed extends Component {
   state = {
@@ -35,11 +36,17 @@ class Feed extends Component {
   }
   render() {
     return (
+      <>
+      <Jumbotron>
+<h1>Check Out What Others Have Done!</h1>
+      </Jumbotron>
       <div className="container">
+        
         <CardColumns>
           <Card style={{ width: "18rem" }}>
             <CardImg
               style={{ height: "15rem" }}
+              className="hvr-grow-shadow"
               maxHeight="250px"
               top
               width="100%"
@@ -49,9 +56,9 @@ class Feed extends Component {
             <CardBody>
               <CardTitle>
                 <h3>
-                Camping at Arches National Park <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />
+                Camping at Arches National Park <FaCheck style={{ color: "#04ec18" }} className="hvr-grow-shadow" />
                 </h3></CardTitle>
-              <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Daniel Garcia</a> </CardSubtitle>
+              <CardSubtitle className="hvr-grow-shadow"><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Daniel Garcia</a> </CardSubtitle>
               <CardText>
                 Arches National Park is a national park in eastern Utah, United
                 States. The park is adjacent to the Colorado River, north of
@@ -67,6 +74,7 @@ class Feed extends Component {
           <Card style={{ width: "18rem" }}>
             <CardImg
               style={{ height: "15rem" }}
+              className="hvr-grow-shadow"
               top
               width="100%"
               src=" https://images.unsplash.com/photo-1483069125343-4ef290c07840?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2251&q=80(510 kB)
@@ -93,6 +101,7 @@ class Feed extends Component {
           <Card style={{ width: "18rem" }}>
             <CardImg
               style={{ height: "15rem" }}
+              className="hvr-grow-shadow"
               top
               width="100%"
               src="https://images.unsplash.com/photo-1532664189809-02133fee698d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1275&q=80(392 kB)"
@@ -117,6 +126,7 @@ class Feed extends Component {
           <Card style={{ width: "18rem" }}>
             <CardImg
               style={{ height: "15rem" }}
+              className="hvr-grow-shadow"
               top
               width="100%"
               src="https://images.unsplash.com/photo-1545168599-847c33ad81bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1275&q=80(311 kB)"
@@ -144,6 +154,7 @@ class Feed extends Component {
           <Card style={{ width: "18rem" }}>
             <CardImg
               style={{ height: "15rem" }}
+              className="hvr-grow-shadow"
               top
               width="100%"
               src="https://images.unsplash.com/photo-1474623809196-26c1d33457cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2048&q=80(285 kB)"
@@ -171,6 +182,7 @@ class Feed extends Component {
           <Card style={{ width: "18rem" }}>
             <CardImg
               style={{ height: "15rem" }}
+              className="hvr-grow-shadow"
               top
               width="100%"
               src="https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2269&q=80(488 kB)"
@@ -198,6 +210,7 @@ class Feed extends Component {
           <Card style={{ width: "18rem" }}>
             <CardImg
               style={{ height: "15rem" }}
+              className="hvr-grow-shadow"
               top
               width="100%"
               src="https://images.unsplash.com/photo-1551316679-9c6ae9dec224?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80"
@@ -225,6 +238,7 @@ class Feed extends Component {
           <Card style={{ width: "18rem" }}>
             <CardImg
               style={{ height: "15rem" }}
+              className="hvr-grow-shadow"
               top
               width="100%"
               src="https://images.unsplash.com/photo-1486911278844-a81c5267e227?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80(675 kB)"
@@ -252,6 +266,7 @@ class Feed extends Component {
           <Card style={{ width: "18rem" }}>
             <CardImg
               style={{ height: "15rem" }}
+              className="hvr-grow-shadow"
               top
               width="100%"
               src="http://www.bluemaize.net/im/automotive/your-mom-6.gif"
@@ -276,6 +291,7 @@ class Feed extends Component {
           </Card>
         </CardColumns>
       </div>
+      </>
     );
   }
 }
