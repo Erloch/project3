@@ -113,7 +113,7 @@ class App extends Component {
             username: ""
           });
           console.log("log in successful");
-          window.location.href = '/profile';
+          window.location.href = '/YourList';
         } else {
           console.log("something went wrong :(")
           console.log(user.data);
