@@ -70,8 +70,6 @@ class Buckets extends Component {
           currentAuthor: res.data.username,
           completedItems,
           incompleteItems,
-          // notRecommended,
-          bucketList: res.data.bucketArray,
           image: "",
           description: "",
           activity: ""
@@ -217,7 +215,7 @@ class Buckets extends Component {
             )}
           </Col>
         </Row>
-        
+        {this.state.currentAuthor ? ( <>
           <br></br>
         <div className="modelbuttB">
                 <Button color="success" onClick={this.toggle}>
@@ -266,7 +264,8 @@ class Buckets extends Component {
                     </Button>
                   </ModalFooter>
                 </Modal>
-              </div>
+        </div>
+        </>) : (<div></div>)}
       </Container>
     );
   }
