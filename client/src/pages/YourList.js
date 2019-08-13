@@ -151,7 +151,7 @@ class YourList extends Component {
                                                 <CardBody>
                                                     <CardTitle><Link to={"/buckets/" + listItem._id}>
                                                         <strong>
-                                                            {listItem.activity} by {this.state.currentAuthor}
+                                                            {listItem.activity}
                                                         </strong>
                                                     </Link></CardTitle>
                                                 </CardBody>
@@ -192,7 +192,7 @@ class YourList extends Component {
                                                 <CardBody>
                                                     <CardTitle><Link to={"/buckets/" + listItem._id}>
                                                         <strong>
-                                                            {listItem.activity} by {this.state.currentAuthor}
+                                                            {listItem.activity}
                                                         </strong>
                                                     </Link></CardTitle>
                                                 </CardBody>

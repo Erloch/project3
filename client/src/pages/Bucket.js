@@ -187,9 +187,9 @@ class Buckets extends Component {
               <h1 className="display">
                 {this.state.currentAuthor ? (
                   <>
-                   {/* Checkout what others are adding to their lists! */}
-                    {this.state.currentAuthor}, what would you like to
-                    do?
+                   Checkout what others are adding to their lists!
+                    {/* {this.state.currentAuthor}, what would you like to
+                    do? */}
                   </>
                 ) : (
                   <>Please Sign In to add Bucket List Items</>
