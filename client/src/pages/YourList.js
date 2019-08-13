@@ -130,29 +130,126 @@ class YourList extends Component {
     this.toggle();
   };
 
-  render() {
-    console.log(this.props);
-    console.log(this.state);
-    return (
-      <Container fluid>
-        <Row>
-          <Col sm="12" md={{ size: 6 }}>
-            <Jumbotron className="bg-info">
-              <h1 className="display-4 text-light">Bucket List</h1>
-            </Jumbotron>
-            
-            {/* <List>
-                            {this.state.incompleteItems.map(listItem => (
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleFormSubmit = event => {
+        event.preventDefault();
+        if (this.state.activity) {
+            API.saveBucket({
+                activity: this.state.activity,
+                author: this.state.currentAuthor,
+                description: this.state.description,
+                date: this.state.date,
+                image: this.state.image,
+                userID: this.state.userID
+            })
+                .then(() => this.loadBuckets())
+                .catch(err => console.log(err));
+        }
+        this.toggle();
+    };
+
+    render() {
+        console.log(this.props);
+        console.log(this.state);
+        return (
+            <Container fluid>
+                <Row>
+                    <div className="modelbutt">
+                        <Button color="success" onClick={this.toggle}>Add Your Own!</Button>
+                        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                            <ModalHeader toggle={this.toggle}>What Would You Love To Do!</ModalHeader>
+                            <ModalBody>
+                                <form>
+                                    <Input
+                                        value={this.state.activity}
+                                        onChange={this.handleInputChange}
+                                        name="activity"
+                                        placeholder="Activity (required)"
+                                    />
+
+                                    <TextArea
+                                        value={this.state.description}
+                                        onChange={this.handleInputChange}
+                                        name="description"
+                                        placeholder="Description (Optional)"
+                                    />
+                                    <Input
+                                        value={this.state.image}
+                                        onChange={this.handleInputChange}
+                                        name="image"
+                                        placeholder="Pic (or it didn't happen)"
+                                    />
+                                    <FormBtn
+                                        disabled={!(this.state.activity)}
+                                        onClick={this.handleFormSubmit}
+                                    >
+                                        Submit Activity
+              </FormBtn>
+                                </form>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="secondary" onClick={this.toggle}>Close</Button>
+                            </ModalFooter>
+                        </Modal>
+                    </div>
+
+                </Row>
+                <Row>
+                    <Col sm="12" md={{ size: 6 }}>
+
+                        <Jumbotron className="bg-info">
+                            <h1 className="display-4 text-light">Your Bucket List!</h1>
+                        </Jumbotron>
+                      
+                        {/* {this.state.user && this.state.user.bucketArray.length ? (
+                            <List>
+                                {this.state.incompleteItems.map(listItem => (
+                                    <ListItem key={listItem._id}>
+                                        <Link to={"/buckets/" + listItem._id}>
+                                            <strong>
+                                                {listItem.activity}
+                                            </strong>
+                                        </Link>
+                                        <CompBtn onClick={() => this.updateBucket(listItem._id, "completed", !this.state.bucketList.find(item => item._id === listItem._id).completed)} />
+                                        <DeleteBtn onClick={() => this.updateBucket(listItem._id, "recommended", !this.state.bucketList.find(item => item._id === listItem._id).recommended)} />
+                                        
+                                    </ListItem>)
+                                )}
+                            </List>
+                        ) : (
+                                <h3>No Results to Display</h3>
+                            )}
+                    </Col>
+                    <Col sm="12" md={{ size: 6 }}>
+                        <Jumbotron className="bg-info"> */}
+                            {/* <h1 className="display-4 text-light">Completed Bucket Activities</h1>
+                        </Jumbotron>
+                        <List>
+                            {this.state.completedItems.map(listItem => (
                                 <ListItem key={listItem._id}>
                                     <Link to={"/buckets/" + listItem._id}>
                                         <strong>
-                                            {listItem.activity} by {listItem.author}
+                                            {listItem.activity}
                                         </strong>
-                                    </Link>
-                                    <CompBtn onClick={() => this.updateBucket(listItem._id, "completed", !this.state.bucketList.find(item => item._id === listItem._id).completed)} />
-                                    <DeleteBtn onClick={() => this.updateBucket(listItem._id, "recommended", !this.state.bucketList.find(item => item._id === listItem._id).recommended)} />
+                                    </Link> */}
+                                    {/* <CompBtn onClick={() => this.updateBucket(listItem._id, "completed", !this.state.bucketList.find(item => item._id === listItem._id).completed)} /> */}
+                                    {/* <DeleteBtn onClick={() => this.updateBucket(listItem._id, "recommended", !this.state.bucketList.find(item => item._id === listItem._id).recommended)} />
                                     <AddBtn onClick={() => this.updateBucket(listItem._id, "onBlist", !this.state.bucketList.find(item => item._id === listItem._id).onBlist)} />
-                                </ListItem>) */}
+                                </ListItem>)
+                            )}
+                        </List>
+                    </Col>
+                </Row>
+                
+            </Container>
+        );
+    } */}
             {this.state.user && this.state.user.bucketArray.length ? (
               <List>
                 {this.state.incompleteItems.map(listItem => (

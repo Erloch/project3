@@ -4,6 +4,7 @@ import { FaRegStar } from "react-icons/fa";
 import ReactTooltip from "react-tooltip";
 
 function AddBtn(props) {
+    console.log("this is add button", props);
   return (
     <span className="add-btn" {...props} role="button" tabIndex="2">
       <a data-tip data-for="addFace">
