@@ -27,7 +27,6 @@ class Buckets extends Component {
     currentAuthor: "",
     userID: ""
   };
-
   componentDidMount() {
     console.log("component did mount");
     console.log(this.props);
@@ -42,6 +41,7 @@ class Buckets extends Component {
             },
             () => {
               this.loadBuckets();
+              this.assignUser();
             }
           );
         }
@@ -56,8 +56,7 @@ class Buckets extends Component {
       modal: !prevState.modal
     }));
   }
-
-  loadBuckets = () => {
+  assignUser = ()=> {
     API.getUserBucket(this.state.user._id)
       .then(res => {
         const completedItems = res.data.bucketArray.filter(
@@ -78,6 +77,20 @@ class Buckets extends Component {
           activity: ""
         });
       })
+      .catch(err => console.log(err));
+  }
+
+  loadBuckets = () => {
+    API.getBuckets()
+      .then(res =>
+        this.setState({
+          bucketList: res.data,
+          activity: "",
+          author: "",
+          description: "",
+          image: ""
+        })
+      )
       .catch(err => console.log(err));
   };
 
@@ -127,6 +140,7 @@ class Buckets extends Component {
     this.toggle();
   };
 
+
   render() {
     return (
       <Container fluid>
@@ -135,9 +149,9 @@ class Buckets extends Component {
           <Col size="md-12">
             <Jumbotron className="bg-primary">
               <h1 className="display">
-                {this.state.bucketList.length ? (
+                {this.state.currentAuthor ? (
                   <>
-                    {this.state.bucketList[0].author}, what would you like to
+                    {this.state.currentAuthor}, what would you like to
                     do?
                   </>
                 ) : (
@@ -146,54 +160,7 @@ class Buckets extends Component {
               </h1>
             </Jumbotron>
           </Col>
-          <div className="modelbutt">
-                <Button color="success" onClick={this.toggle}>
-                  Create Your Own!
-                </Button>
-                <Modal
-                  isOpen={this.state.modal}
-                  toggle={this.toggle}
-                  className={this.props.className}
-                >
-                  <ModalHeader toggle={this.toggle}>
-                    Create Your Own!
-                  </ModalHeader>
-                  <ModalBody>
-                    <form>
-                      <Input
-                        value={this.state.activity}
-                        onChange={this.handleInputChange}
-                        name="activity"
-                        placeholder="Activity (required)"
-                      />
-
-                      <TextArea
-                        value={this.state.description}
-                        onChange={this.handleInputChange}
-                        name="description"
-                        placeholder="Description (Optional)"
-                      />
-                      <Input
-                        value={this.state.image}
-                        onChange={this.handleInputChange}
-                        name="image"
-                        placeholder="Pic (or it didn't happen)"
-                      />
-                      <FormBtn
-                        disabled={!this.state.activity}
-                        onClick={this.handleFormSubmit}
-                      >
-                        Submit Activity
-                      </FormBtn>
-                    </form>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="secondary" onClick={this.toggle}>
-                      Close
-                    </Button>
-                  </ModalFooter>
-                </Modal>
-              </div>
+          
           <Col size="md-12">
             {this.state.bucketList.length ? (
               <List>
@@ -250,6 +217,56 @@ class Buckets extends Component {
             )}
           </Col>
         </Row>
+        
+          <br></br>
+        <div className="modelbuttB">
+                <Button color="success" onClick={this.toggle}>
+                  Create Your Own!
+                </Button>
+                <Modal
+                  isOpen={this.state.modal}
+                  toggle={this.toggle}
+                  className={this.props.className}
+                >
+                  <ModalHeader toggle={this.toggle}>
+                    Create Your Own!
+                  </ModalHeader>
+                  <ModalBody>
+                    <form>
+                      <Input
+                        value={this.state.activity}
+                        onChange={this.handleInputChange}
+                        name="activity"
+                        placeholder="Activity (required)"
+                      />
+
+                      <TextArea
+                        value={this.state.description}
+                        onChange={this.handleInputChange}
+                        name="description"
+                        placeholder="Description (Optional)"
+                      />
+                      <Input
+                        value={this.state.image}
+                        onChange={this.handleInputChange}
+                        name="image"
+                        placeholder="Pic (or it didn't happen)"
+                      />
+                      <FormBtn
+                        disabled={!this.state.activity}
+                        onClick={this.handleFormSubmit}
+                      >
+                        Submit Activity
+                      </FormBtn>
+                    </form>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="secondary" onClick={this.toggle}>
+                      Close
+                    </Button>
+                  </ModalFooter>
+                </Modal>
+              </div>
       </Container>
     );
   }
