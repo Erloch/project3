@@ -75,7 +75,7 @@ class YourList extends Component {
           currentAuthor: res.data.username,
           completedItems,
           incompleteItems,
-          // notRecommended,
+          bucketList: res.data.bucketArray,
           image: "",
           description: "",
           activity: ""
@@ -140,56 +140,7 @@ class YourList extends Component {
             <Jumbotron className="bg-info">
               <h1 className="display-4 text-light">Bucket List</h1>
             </Jumbotron>
-            <Row>
-              <div className="modelbutt">
-                <Button color="success" onClick={this.toggle}>
-                  Create Your Own!
-                </Button>
-                <Modal
-                  isOpen={this.state.modal}
-                  toggle={this.toggle}
-                  className={this.props.className}
-                >
-                  <ModalHeader toggle={this.toggle}>
-                    Create Your Own!
-                  </ModalHeader>
-                  <ModalBody>
-                    <form>
-                      <Input
-                        value={this.state.activity}
-                        onChange={this.handleInputChange}
-                        name="activity"
-                        placeholder="Activity (required)"
-                      />
-
-                      <TextArea
-                        value={this.state.description}
-                        onChange={this.handleInputChange}
-                        name="description"
-                        placeholder="Description (Optional)"
-                      />
-                      <Input
-                        value={this.state.image}
-                        onChange={this.handleInputChange}
-                        name="image"
-                        placeholder="Pic (or it didn't happen)"
-                      />
-                      <FormBtn
-                        disabled={!this.state.activity}
-                        onClick={this.handleFormSubmit}
-                      >
-                        Submit Activity
-                      </FormBtn>
-                    </form>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="secondary" onClick={this.toggle}>
-                      Close
-                    </Button>
-                  </ModalFooter>
-                </Modal>
-              </div>
-            </Row>
+            
             {/* <List>
                             {this.state.incompleteItems.map(listItem => (
                                 <ListItem key={listItem._id}>
@@ -302,6 +253,56 @@ class YourList extends Component {
           </Col>
         </Row>
         <Row>
+          
+          <div className="modelbutt">
+                <Button color="success" onClick={this.toggle}>
+                  Create Your Own!
+                </Button>
+                <Modal
+                  isOpen={this.state.modal}
+                  toggle={this.toggle}
+                  className={this.props.className}
+                >
+                  <ModalHeader toggle={this.toggle}>
+                    Create Your Own!
+                  </ModalHeader>
+                  <ModalBody>
+                    <form>
+                      <Input
+                        value={this.state.activity}
+                        onChange={this.handleInputChange}
+                        name="activity"
+                        placeholder="Activity (required)"
+                      />
+
+                      <TextArea
+                        value={this.state.description}
+                        onChange={this.handleInputChange}
+                        name="description"
+                        placeholder="Description (Optional)"
+                      />
+                      <Input
+                        value={this.state.image}
+                        onChange={this.handleInputChange}
+                        name="image"
+                        placeholder="Pic (or it didn't happen)"
+                      />
+                      <FormBtn
+                        disabled={!this.state.activity}
+                        onClick={this.handleFormSubmit}
+                      >
+                        Submit Activity
+                      </FormBtn>
+                    </form>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="secondary" onClick={this.toggle}>
+                      Close
+                    </Button>
+                  </ModalFooter>
+                </Modal>
+              </div>
+          
           <Col md={{ size: 6, offset: 3 }}>
             <h3>Saved for later/Unrecommended</h3>
             <List>
@@ -347,6 +348,7 @@ class YourList extends Component {
                   />
                 </ListItem>
               ))}
+              
             </List>
           </Col>
         </Row>
