@@ -11,6 +11,7 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "./Bucket.css";
 import ReactTooltip from "react-tooltip";
+import YouList from "./YourList";
 
 class Buckets extends Component {
   state = {
@@ -24,9 +25,11 @@ class Buckets extends Component {
     description: "",
     image: "",
     modal: false,
-    currentAuthor: "",
     userID: ""
   };
+
+ 
+
   componentDidMount() {
     console.log("component did mount");
     console.log(this.props);
@@ -86,11 +89,22 @@ class Buckets extends Component {
           activity: "",
           author: "",
           description: "",
+          userID: res.data._id,
           image: ""
         })
       )
       .catch(err => console.log(err));
-  };
+    
+    API.isLoggedIn().then(user => {
+      this.setState({
+        userID: user.data.user._id
+      })
+    })
+      .catch(err => {
+      console.log(err);
+      });
+  }
+
 
   addBucket(id) {
     console.log("add id =" + id);
@@ -110,6 +124,30 @@ class Buckets extends Component {
       .catch(err => console.log(err));
   }
 
+
+  
+  // Below method is for adding favorite to my list
+  handleFavoriteSubmit = event => {
+    event.preventDefault();
+    
+    const clickedBtnID = event.currentTarget.getAttribute('buttonid');
+    
+    const match = this.state.bucketList.filter(item => clickedBtnID === item._id)[0]
+        console.log(this.state)
+        console.log(match)
+ API.saveBucket({
+            activity: match.activity,
+            author: match.author,
+            description: match.description,
+            date: match.date,
+            image: match.image,
+            userID: this.state.userID
+        })
+            // .then(() => this.loadBuckets())
+            .catch(err => console.log(err));
+    
+    
+};
   compBucket(id) {
     console.log("comp id =" + id);
   }
@@ -149,6 +187,7 @@ class Buckets extends Component {
               <h1 className="display">
                 {this.state.currentAuthor ? (
                   <>
+                   {/* Checkout what others are adding to their lists! */}
                     {this.state.currentAuthor}, what would you like to
                     do?
                   </>
@@ -174,39 +213,12 @@ class Buckets extends Component {
                         </ReactTooltip>
                       </strong>
                     </Link>
-                    <CompBtn
-                      onClick={() =>
-                        this.updateBucket(
-                          listItem._id,
-                          "completed",
-                          !this.state.bucketList.find(
-                            item => item._id === listItem._id
-                          ).completed
-                        )
-                      }
-                    />
-                    <DeleteBtn
-                      onClick={() =>
-                        this.updateBucket(
-                          listItem._id,
-                          "recommended",
-                          !this.state.bucketList.find(
-                            item => item._id === listItem._id
-                          ).recommended
-                        )
-                      }
-                    />
+                    
                     <AddBtn
-                      onClick={() =>
-                        this.updateBucket(
-                          listItem._id,
-                          "onBlist",
-                          !this.state.bucketList.find(
-                            item => item._id === listItem._id
-                          ).onBlist
-                        )
-                      }
-                    />
+                      buttonID={listItem._id}
+                      onClick={this.handleFavoriteSubmit}
+                      
+                />
                   </ListItem>
                 ))}
               </List>
