@@ -143,7 +143,7 @@ class Buckets extends Component {
             image: match.image,
             userID: this.state.userID
         })
-            // .then(() => this.loadBuckets())
+            .then(() => this.props.history.push("/YourList"))
             .catch(err => console.log(err));
     
     
@@ -187,9 +187,9 @@ class Buckets extends Component {
               <h1 className="display">
                 {this.state.currentAuthor ? (
                   <>
-                   {/* Checkout what others are adding to their lists! */}
-                    {this.state.currentAuthor}, what would you like to
-                    do?
+                   Checkout what others are adding to their lists!
+                    {/* {this.state.currentAuthor}, what would you like to
+                    do? */}
                   </>
                 ) : (
                   <>Please Sign In to add Bucket List Items</>
