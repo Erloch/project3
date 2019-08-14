@@ -227,7 +227,7 @@ class Buckets extends Component {
         {this.state.currentAuthor ? ( <>
           <br></br>
         <div className="modelbuttB">
-                <Button color="success" onClick={this.toggle}>
+                <Button color="primary" onClick={this.toggle}>
                   Create Your Own!
                 </Button>
                 <Modal

@@ -41,7 +41,6 @@ class Feed extends Component {
 <h1>Check Out What Others Have Done!</h1>
       </Jumbotron>
       <div className="container">
-        
         <CardColumns>
           <Card style={{ width: "18rem" }}>
             <CardImg
