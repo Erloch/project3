@@ -268,20 +268,11 @@ class Feed extends Component {
               className="hvr-grow-shadow"
               top
               width="100%"
-              src="http://www.bluemaize.net/im/automotive/your-mom-6.gif"
+              
               alt="Card image cap"
             />
             <CardBody>
-              <CardTitle>
-                <h3>
-                Climb Your Mom  <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />
-                </h3></CardTitle>
-              <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Erich</a> </CardSubtitle>
-              <CardText>
-                Mount Beverest, known in Nepali as Sagarmāthā and in Tibetan as
-                Chomolungma, is Earth's highest mom above sea level,
-                located in the Mahalangur Himal sub-range of the Hima layas playas. 
-              </CardText>
+              
               <Link to="/feed">
                 <AddBtn onClick={() => alert("Added!")} />
               </Link>

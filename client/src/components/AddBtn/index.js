@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 import { FaRegStar } from "react-icons/fa";
 import ReactTooltip from "react-tooltip";
+import {Link} from "react-router-dom"
 
 function AddBtn(props) {
     console.log("this is add button", props);
@@ -13,6 +14,7 @@ function AddBtn(props) {
       <ReactTooltip id="addFace" type="warning">
         <span>Add To List</span>
       </ReactTooltip>
+     
     </span>
   );
 }
