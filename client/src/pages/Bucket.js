@@ -22,7 +22,8 @@ class Buckets extends Component {
     description: "",
     image: "",
     modal: false,
-    userID: ""
+    userID: "",
+    currentAuthor: ""
   };
 
  
@@ -54,33 +55,55 @@ class Buckets extends Component {
       modal: !prevState.modal
     }));
   }
-  loadBuckets = () => {
-    API.getBuckets()
-      .then(res =>
+  loadBuckets = ()=> {
+    API.getUserBucket(this.state.user._id)
+      .then(res => {
+        const completedItems = res.data.bucketArray.filter(
+          listItem => listItem.completed
+        );
+        const incompleteItems = res.data.bucketArray
+          .filter(listItem => !listItem.completed)
+          .reverse();
         this.setState({
-          bucketList: res.data,
-          activity: "",
-          author: "",
-          description: "",
           userID: res.data._id,
-          image: ""
-        })
-      )
-      .catch(err => console.log(err));
-    
-    API.isLoggedIn().then(user => {
-      this.setState({
-        userID: user.data.user._id
+          currentAuthor: res.data.username,
+          completedItems,
+          incompleteItems,
+          image: "",
+          description: "",
+          bucketList: res.data.bucketArray,
+          activity: ""
+        });
       })
-    })
-      .catch(err => {
-      console.log(err);
-      });
+      .catch(err => console.log(err));
   }
 
-  addBucket(id) {
-    console.log("add id =" + id);
-  }
+  // loadBuckets = () => {
+  //   API.getBuckets()
+  //     .then(res =>
+  //       this.setState({
+  //         bucketList: res.data,
+  //         activity: "",
+  //         author: "",
+  //         description: "",
+  //         userID: res.data._id,
+  //         image: ""
+  //       })
+  //     )
+  //     .catch(err => console.log(err));
+    
+  //   API.isLoggedIn().then(user => {
+  //     this.setState({
+  //       userID: user.data.user._id
+  //     })
+  //   })
+  //     .catch(err => {
+  //     console.log(err);
+  //     });
+  // }  
+  // addBucket(id) {
+  //   console.log("add id =" + id);
+  // }
 
   deleteBucket(id) {
     console.log("id = " + id);
