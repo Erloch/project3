@@ -43,6 +43,7 @@ class YourList extends Component {
     console.log("component did mount");
     console.log(this.props);
     this.toggle = this.toggle.bind(this);
+    this.toggle();
     API.isLoggedIn()
       .then(user => {
         if (user.data.loggedIn) {
@@ -144,12 +145,12 @@ class YourList extends Component {
         <Container fluid>
           <Row>
             <Col sm="12" md={{ size: 6 }}>
-              <Jumbotron id="jumbo">
+              <Jumbotron className="bg-primary" id="jumbo">
                 <h1 className="display-4 text-light">Bucket List</h1>
               </Jumbotron>
             </Col>
             <Col sm="12" md={{ size: 6 }}>
-              <Jumbotron id="jumbo">
+              <Jumbotron className="bg-primary" id="jumbo">
                 <h1 className="display-4 text-light">Completed Bucket List</h1>
               </Jumbotron>
             </Col>

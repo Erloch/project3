@@ -7,6 +7,9 @@
 h1{
     color: white;
 }
+h3{
+  color: #fcfcfc;
+}
 .hvr-grow-shadow {
   display: inline-block;
   vertical-align: middle;
