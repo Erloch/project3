@@ -1,10 +1,25 @@
 @import "../../sass/variable.scss";
 
+
+#background{
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("https://images.unsplash.com/photo-1485470733090-0aae1788d5af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2182&q=80");
+    // background-color: #001514;
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    height: auto;
+    min-height: calc(100vh - 60px); 
+}
+
+
 .authBox {
-    padding-top: 75px;
+    background-color: #fcfcfc;
     margin: 0 auto;
+    margin-top: 200px;
     width: 300px;
     font-family: $text-font;
+    padding: 20px;
+    border-radius: 10px;
 
     .loginTitle {
         text-align: center;
@@ -20,11 +35,10 @@
     }
 
     #loginBtn {
-        background: $primary-color;
+        background: #EE6C4D;
         font-family: $title-font;
         color: $light-text;
         border: none;
         font-size: 1.2em;
     }
 }
-
