@@ -49,7 +49,6 @@ class Buckets extends Component {
       .catch(err => {
         console.log(err);
       });
-    // push completed and incomplete items to respective arrays
   }
   toggle() {
     this.setState(prevState => ({
@@ -79,29 +78,29 @@ class Buckets extends Component {
       .catch(err => console.log(err));
   }
 
-  loadBuckets = () => {
-    API.getBuckets()
-      .then(res =>
-        this.setState({
-          bucketList: res.data,
-          activity: "",
-          author: "",
-          description: "",
-          userID: res.data._id,
-          image: ""
-        })
-      )
-      .catch(err => console.log(err));
+  // loadBuckets = () => {
+  //   API.getBuckets()
+  //     .then(res =>
+  //       this.setState({
+  //         bucketList: res.data,
+  //         activity: "",
+  //         author: "",
+  //         description: "",
+  //         userID: res.data._id,
+  //         image: ""
+  //       })
+  //     )
+  //     .catch(err => console.log(err));
     
-    API.isLoggedIn().then(user => {
-      this.setState({
-        userID: user.data.user._id
-      })
-    })
-      .catch(err => {
-      console.log(err);
-      });
-  }
+  //   API.isLoggedIn().then(user => {
+  //     this.setState({
+  //       userID: user.data.user._id
+  //     })
+  //   })
+  //     .catch(err => {
+  //     console.log(err);
+  //     });
+  // }
 
 
   addBucket(id) {
@@ -185,7 +184,7 @@ class Buckets extends Component {
               <h1 className="display">
                 {this.state.currentAuthor ? (
                   <>
-                   Checkout what others are adding to their lists!
+                   Checkout what others are adding to their lists!<br></br>
                     {this.state.currentAuthor}, what would you like to
                     do?
                   </>

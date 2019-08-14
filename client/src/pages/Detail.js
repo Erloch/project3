@@ -75,5 +75,5 @@ class Detail extends Component {
     );
   }
 }
-//adding something
+
 export default Detail;
