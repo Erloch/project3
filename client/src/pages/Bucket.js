@@ -41,6 +41,7 @@ class Buckets extends Component {
             },
             () => {
               this.loadBuckets();
+              this.assignUser();
             }
           );
         }
@@ -48,12 +49,35 @@ class Buckets extends Component {
       .catch(err => {
         console.log(err);
       });
+    // push completed and incomplete items to respective arrays
   }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
   }
+  assignUser = ()=> {
+    API.getUserBucket(this.state.user._id)
+      .then(res => {
+        const completedItems = res.data.bucketArray.filter(
+          listItem => listItem.completed
+        );
+        const incompleteItems = res.data.bucketArray
+          .filter(listItem => !listItem.completed)
+          .reverse();
+        this.setState({
+          userID: res.data._id,
+          currentAuthor: res.data.username,
+          completedItems,
+          incompleteItems,
+          image: "",
+          description: "",
+          activity: ""
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
   loadBuckets = () => {
     API.getBuckets()
       .then(res =>
@@ -77,6 +101,7 @@ class Buckets extends Component {
       console.log(err);
       });
   }
+
 
   addBucket(id) {
     console.log("add id =" + id);

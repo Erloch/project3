@@ -69,27 +69,32 @@ function Auth(props) {
 
 
   return (
-    <div className="authBox">
-      {(props.action === "login") ? (
-        <Login
-          username={props.username}
-          password={props.password}
-          handleLogin={props.handleLogin}
-          handleInputChange={props.handleInputChange}
-          loggedIn={props.loggedIn}
-          handleLogout={props.handleLogout}
-          message={props.message}
-        />
-      ) : (
-          <Signup
+    <div id="background">
+        <br></br>
+        
+      <div className="authBox">
+
+        {(props.action === "login") ? (
+          <Login
             username={props.username}
             password={props.password}
-            confirmPassword={props.confirmPassword}
-            handleSignup={props.handleSignup}
+            handleLogin={props.handleLogin}
             handleInputChange={props.handleInputChange}
+            loggedIn={props.loggedIn}
+            handleLogout={props.handleLogout}
             message={props.message}
           />
-        )}
+        ) : (
+            <Signup
+              username={props.username}
+              password={props.password}
+              confirmPassword={props.confirmPassword}
+              handleSignup={props.handleSignup}
+              handleInputChange={props.handleInputChange}
+              message={props.message}
+            />
+          )}
+      </div>
     </div>
   )
 

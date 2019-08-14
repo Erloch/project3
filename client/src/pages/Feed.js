@@ -262,23 +262,6 @@ class Feed extends Component {
               <div />
             </CardBody>
           </Card>
-          <Card style={{ width: "18rem" }}>
-            <CardImg
-              style={{ height: "15rem" }}
-              className="hvr-grow-shadow"
-              top
-              width="100%"
-              
-              alt="Card image cap"
-            />
-            <CardBody>
-              
-              <Link to="/feed">
-                <AddBtn onClick={() => alert("Added!")} />
-              </Link>
-              <div />
-            </CardBody>
-          </Card>
         </CardColumns>
       </div>
       </>
