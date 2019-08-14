@@ -22,8 +22,7 @@ class Buckets extends Component {
     description: "",
     image: "",
     modal: false,
-    userID: "",
-    currentAuthor: ""
+    userID: ""
   };
 
  
@@ -42,6 +41,7 @@ class Buckets extends Component {
             },
             () => {
               this.loadBuckets();
+              this.assignUser();
             }
           );
         }
@@ -49,13 +49,14 @@ class Buckets extends Component {
       .catch(err => {
         console.log(err);
       });
+    // push completed and incomplete items to respective arrays
   }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
   }
-  loadBuckets = ()=> {
+  assignUser = ()=> {
     API.getUserBucket(this.state.user._id)
       .then(res => {
         const completedItems = res.data.bucketArray.filter(
@@ -71,39 +72,40 @@ class Buckets extends Component {
           incompleteItems,
           image: "",
           description: "",
-          bucketList: res.data.bucketArray,
           activity: ""
         });
       })
       .catch(err => console.log(err));
   }
 
-  // loadBuckets = () => {
-  //   API.getBuckets()
-  //     .then(res =>
-  //       this.setState({
-  //         bucketList: res.data,
-  //         activity: "",
-  //         author: "",
-  //         description: "",
-  //         userID: res.data._id,
-  //         image: ""
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
+  loadBuckets = () => {
+    API.getBuckets()
+      .then(res =>
+        this.setState({
+          bucketList: res.data,
+          activity: "",
+          author: "",
+          description: "",
+          userID: res.data._id,
+          image: ""
+        })
+      )
+      .catch(err => console.log(err));
     
-  //   API.isLoggedIn().then(user => {
-  //     this.setState({
-  //       userID: user.data.user._id
-  //     })
-  //   })
-  //     .catch(err => {
-  //     console.log(err);
-  //     });
-  // }  
-  // addBucket(id) {
-  //   console.log("add id =" + id);
-  // }
+    API.isLoggedIn().then(user => {
+      this.setState({
+        userID: user.data.user._id
+      })
+    })
+      .catch(err => {
+      console.log(err);
+      });
+  }
+
+
+  addBucket(id) {
+    console.log("add id =" + id);
+  }
 
   deleteBucket(id) {
     console.log("id = " + id);
@@ -140,9 +142,9 @@ class Buckets extends Component {
         })
             .then(() => this.props.history.push("/YourList"))
             .catch(err => console.log(err));
-    
-    
 };
+
+
   compBucket(id) {
     console.log("comp id =" + id);
   }
@@ -208,12 +210,14 @@ class Buckets extends Component {
                         </ReactTooltip>
                       </strong>
                     </Link>
-                    
+
+                   
                     <AddBtn
                       buttonID={listItem._id}
                       onClick={this.handleFavoriteSubmit}
-                      
-                />
+                      />
+                    
+
                   </ListItem>
                 ))}
               </List>
