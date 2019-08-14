@@ -22,8 +22,7 @@ class Buckets extends Component {
     description: "",
     image: "",
     modal: false,
-    userID: "",
-    currentAuthor: ""
+    userID: ""
   };
 
  
@@ -55,53 +54,29 @@ class Buckets extends Component {
       modal: !prevState.modal
     }));
   }
-  loadBuckets = ()=> {
-    API.getUserBucket(this.state.user._id)
-      .then(res => {
-        const completedItems = res.data.bucketArray.filter(
-          listItem => listItem.completed
-        );
-        const incompleteItems = res.data.bucketArray
-          .filter(listItem => !listItem.completed)
-          .reverse();
+  loadBuckets = () => {
+    API.getBuckets()
+      .then(res =>
         this.setState({
-          userID: res.data._id,
-          currentAuthor: res.data.username,
-          completedItems,
-          incompleteItems,
-          image: "",
+          bucketList: res.data,
+          activity: "",
+          author: "",
           description: "",
-          bucketList: res.data.bucketArray,
-          activity: ""
-        });
-      })
+          userID: res.data._id,
+          image: ""
+        })
+      )
       .catch(err => console.log(err));
-  }
-
-  // loadBuckets = () => {
-  //   API.getBuckets()
-  //     .then(res =>
-  //       this.setState({
-  //         bucketList: res.data,
-  //         activity: "",
-  //         author: "",
-  //         description: "",
-  //         userID: res.data._id,
-  //         image: ""
-  //       })
-  //     )
-  //     .catch(err => console.log(err));
     
-  //   API.isLoggedIn().then(user => {
-  //     this.setState({
-  //       userID: user.data.user._id
-  //     })
-  //   })
-  //     .catch(err => {
-  //     console.log(err);
-  //     });
-  // }
-
+    API.isLoggedIn().then(user => {
+      this.setState({
+        userID: user.data.user._id
+      })
+    })
+      .catch(err => {
+      console.log(err);
+      });
+  }
 
   addBucket(id) {
     console.log("add id =" + id);
