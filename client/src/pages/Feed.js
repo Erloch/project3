@@ -268,7 +268,7 @@ class Feed extends Component {
               className="hvr-grow-shadow"
               top
               width="100%"
-              src="http://www.bluemaize.net/im/automotive/your-mom-6.gif"
+              
               alt="Card image cap"
             />
             <CardBody>
