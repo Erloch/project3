@@ -2,6 +2,7 @@
   width: 95.5%;
   margin: auto;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 h1{
     color: white;
@@ -9,19 +10,19 @@ h1{
 .hvr-grow-shadow {
   display: inline-block;
   vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
+   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
   -webkit-transition-property: box-shadow, transform;
   transition-property: box-shadow, transform;
-}
-.hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {
+} 
+ .hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
+} 
 .ModalBody{
   margin: auto;
   width: 50%;
@@ -29,7 +30,7 @@ h1{
   padding: 10px;
 }
 #backgroundImage {
-    background: url("https://www.publicdomainpictures.net/pictures/50000/velka/sunset-background-1371188975Z2h.jpg");
+    /* background: url("https://www.publicdomainpictures.net/pictures/50000/velka/sunset-background-1371188975Z2h.jpg"); */
     background-size: cover;
     background-repeat: no-repeat;
     max-width: 100%;
@@ -41,15 +42,21 @@ h1{
 }
 
 #bucketCard{
-  width: 48%;
-  float: left;
+  /* height: auto; */
+  /* width: 30%; */
+  /* float: left; */
   margin: 5px;
-  background-color:  #b2b2b2;
+  background-color:  #fcfcfc;
+  padding-bottom: 0px;
 }
 
 #bucketCard img {
-  height: 200px;
-  width: auto;
+  /* height: auto; */
+  /* width: auto; */
+}
+
+.cardPic{
+  /* width: 100px; */
 }
 
 #jumbo{
@@ -59,5 +66,5 @@ h1{
 }
 
 #cardSpacing{
-  padding-left: 10px;
+  padding-left: 30px;
 }

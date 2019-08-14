@@ -16,8 +16,10 @@ import {
   CardBody,
   CardLink,
   CardTitle,
-  CardSubtitle
+  CardSubtitle,
 } from "reactstrap";
+import StackGrid from "react-stack-grid";
+import AutoResponsive from "autoresponsive-react";
 import "./YourList.css";
 
 class YourList extends Component {
@@ -145,91 +147,11 @@ class YourList extends Component {
               <Jumbotron id="jumbo">
                 <h1 className="display-4 text-light">Bucket List</h1>
               </Jumbotron>
-              <div id="cardSpacing">
-                {this.state.user && this.state.user.bucketArray.length ? (
-                  <>
-                    {this.state.incompleteItems.map(listItem => (
-                      // <ListItem key={listItem._id}>
-                      <Card key={listItem._id} id="bucketCard">
-                        <CardBody>
-                          <CardTitle>
-                            <Link to={"/buckets/" + listItem._id}>
-                              <strong>{listItem.activity}</strong>
-                            </Link>
-                          </CardTitle>
-                        </CardBody>
-                        <img
-                          width="100%"
-                          src={listItem.image}
-                          alt="Card image cap"
-                        />
-                        <CardBody>
-                          <CardText>{listItem.description}</CardText>
-                          <CompBtn
-                            onClick={() =>
-                              this.updateBucket(
-                                listItem._id,
-                                "completed",
-                                !this.state.bucketList.find(
-                                  item => item._id === listItem._id
-                                ).completed
-                              )
-                            }
-                          />
-                        </CardBody>
-                      </Card>
-                      // </ListItem>
-                    ))}
-                  </>
-                ) : (
-                  <h3>No Results to Display</h3>
-                )}
-              </div>
             </Col>
             <Col sm="12" md={{ size: 6 }}>
               <Jumbotron id="jumbo">
                 <h1 className="display-4 text-light">Completed Bucket List</h1>
               </Jumbotron>
-              <div id="cardSpacing">
-                {this.state.user && this.state.user.bucketArray.length ? (
-                  <>
-                    {this.state.completedItems.map(listItem => (
-                      // <ListItem key={listItem._id}>
-                      <Card key={listItem._id} id="bucketCard">
-                        <CardBody>
-                          <CardTitle>
-                            <Link to={"/buckets/" + listItem._id}>
-                              <strong>{listItem.activity}</strong>
-                            </Link>
-                          </CardTitle>
-                        </CardBody>
-                        <img
-                          width="100%"
-                          src={listItem.image}
-                          alt="Card image cap"
-                        />
-                        <CardBody>
-                          <CardText>{listItem.description}</CardText>
-                          <CompBtn
-                            onClick={() =>
-                              this.updateBucket(
-                                listItem._id,
-                                "completed",
-                                !this.state.bucketList.find(
-                                  item => item._id === listItem._id
-                                ).completed
-                              )
-                            }
-                          />
-                        </CardBody>
-                      </Card>
-                      // </ListItem>
-                    ))}
-                  </>
-                ) : (
-                  <h3>No Results to Display</h3>
-                )}
-              </div>
             </Col>
           </Row>
           <Row>
@@ -280,6 +202,93 @@ class YourList extends Component {
               </Modal>
             </div>
           </Row>
+          <Row>
+            <Col sm="12" md={{ size: 6 }}>
+
+              <div id="cardSpacing">
+                {this.state.user && this.state.user.bucketArray.length ? (
+                  <StackGrid columnWidth={330}>
+                    {this.state.incompleteItems.map(listItem => (
+                      // <ListItem key={listItem._id}>
+                      <Card key={listItem._id} id="bucketCard">
+                        <CardImg
+                          className="cardPic"
+                          src={listItem.image}
+                          alt="Card image cap"
+                        />
+                        <CardBody>
+                          <CardTitle>
+                            <Link to={"/buckets/" + listItem._id}>
+                              <strong>{listItem.activity}</strong>
+                            </Link>
+                          </CardTitle>
+                          <CardText>{listItem.description}</CardText>
+                          <CompBtn
+                            onClick={() =>
+                              this.updateBucket(
+                                listItem._id,
+                                "completed",
+                                !this.state.bucketList.find(
+                                  item => item._id === listItem._id
+                                ).completed
+                              )
+                            }
+                          />
+                        </CardBody>
+                      </Card>
+                      // </ListItem>
+                    ))}
+                  </StackGrid>
+                ) : (
+                    <h3>No Results to Display</h3>
+                  )}
+              </div>
+            </Col>
+            <Col sm="12" md={{ size: 6 }}>
+
+              <div id="cardSpacing">
+                {this.state.user && this.state.user.bucketArray.length ? (
+                  <StackGrid columnWidth={300}>
+                    {this.state.completedItems.map(listItem => (
+                      // <ListItem key={listItem._id}>
+                      <Card key={listItem._id} id="bucketCard">
+                        <CardImg
+                          className="cardPic"
+                          width="auto"
+                          src={listItem.image}
+                          alt="Card image cap"
+                        />
+                        <CardBody>
+                          <CardTitle>
+                            <Link to={"/buckets/" + listItem._id}>
+                              <strong>{listItem.activity}</strong>
+                            </Link>
+                          </CardTitle>
+                          <CardText>{listItem.description}</CardText>
+                          <CompBtn
+                            onClick={() =>
+                              this.updateBucket(
+                                listItem._id,
+                                "completed",
+                                !this.state.bucketList.find(
+                                  item => item._id === listItem._id
+                                ).completed
+                              )
+                            }
+                          />
+                        </CardBody>
+                      </Card>
+                      // </ListItem>
+                    ))}
+                  </StackGrid>
+                ) : (
+                    <h3>No Results to Display</h3>
+                  )}
+              </div>
+            </Col>
+
+          </Row>
+
         </Container>
       </div>
     );
