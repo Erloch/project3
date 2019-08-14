@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
-import CompBtn from "../components/CompBtn";
 import AddBtn from "../components/AddBtn";
-import { Jumbotron } from "reactstrap";
+import Jumbotron from "./../components/Jumbotron/index";
 import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
@@ -11,7 +9,6 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "./Bucket.css";
 import ReactTooltip from "react-tooltip";
-import YouList from "./YourList";
 
 class Buckets extends Component {
   state = {
@@ -44,7 +41,6 @@ class Buckets extends Component {
             },
             () => {
               this.loadBuckets();
-              this.assignUser();
             }
           );
         }
@@ -52,35 +48,12 @@ class Buckets extends Component {
       .catch(err => {
         console.log(err);
       });
-    // push completed and incomplete items to respective arrays
   }
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
   }
-  assignUser = ()=> {
-    API.getUserBucket(this.state.user._id)
-      .then(res => {
-        const completedItems = res.data.bucketArray.filter(
-          listItem => listItem.completed
-        );
-        const incompleteItems = res.data.bucketArray
-          .filter(listItem => !listItem.completed)
-          .reverse();
-        this.setState({
-          userID: res.data._id,
-          currentAuthor: res.data.username,
-          completedItems,
-          incompleteItems,
-          image: "",
-          description: "",
-          activity: ""
-        });
-      })
-      .catch(err => console.log(err));
-  }
-
   loadBuckets = () => {
     API.getBuckets()
       .then(res =>
@@ -104,7 +77,6 @@ class Buckets extends Component {
       console.log(err);
       });
   }
-
 
   addBucket(id) {
     console.log("add id =" + id);
@@ -187,9 +159,9 @@ class Buckets extends Component {
               <h1 className="display">
                 {this.state.currentAuthor ? (
                   <>
-                   Checkout what others are adding to their lists!
-                    {/* {this.state.currentAuthor}, what would you like to
-                    do? */}
+                   Checkout what others are adding to their lists!<br></br>
+                    {this.state.currentAuthor}, what would you like to
+                    do?
                   </>
                 ) : (
                   <>Please Sign In to add Bucket List Items</>
@@ -232,7 +204,7 @@ class Buckets extends Component {
         {this.state.currentAuthor ? ( <>
           <br></br>
         <div className="modelbuttB">
-                <Button color="success" onClick={this.toggle}>
+                <Button color="primary" onClick={this.toggle}>
                   Create Your Own!
                 </Button>
                 <Modal
