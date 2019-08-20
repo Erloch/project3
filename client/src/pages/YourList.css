@@ -33,7 +33,6 @@ h3{
   padding: 10px;
 }
 #backgroundImage {
-    /* background: url("https://www.publicdomainpictures.net/pictures/50000/velka/sunset-background-1371188975Z2h.jpg"); */
     background-size: cover;
     background-repeat: no-repeat;
     max-width: 100%;
@@ -45,21 +44,10 @@ h3{
 }
 
 #bucketCard{
-  /* height: auto; */
-  /* width: 30%; */
-  /* float: left; */
+ 
   margin: 5px;
   background-color:  #fcfcfc;
   padding-bottom: 0px;
-}
-
-#bucketCard img {
-  /* height: auto; */
-  /* width: auto; */
-}
-
-.cardPic{
-  /* width: 100px; */
 }
 
 #jumbo{

@@ -25,8 +25,6 @@ class Buckets extends Component {
     userID: ""
   };
 
- 
-
   componentDidMount() {
     console.log("component did mount");
     console.log(this.props);
@@ -56,7 +54,7 @@ class Buckets extends Component {
       modal: !prevState.modal
     }));
   }
-  assignUser = ()=> {
+  assignUser = () => {
     API.getUserBucket(this.state.user._id)
       .then(res => {
         const completedItems = res.data.bucketArray.filter(
@@ -76,7 +74,7 @@ class Buckets extends Component {
         });
       })
       .catch(err => console.log(err));
-  }
+  };
 
   loadBuckets = () => {
     API.getBuckets()
@@ -91,17 +89,17 @@ class Buckets extends Component {
         })
       )
       .catch(err => console.log(err));
-    
-    API.isLoggedIn().then(user => {
-      this.setState({
-        userID: user.data.user._id
-      })
-    })
-      .catch(err => {
-      console.log(err);
-      });
-  }
 
+    API.isLoggedIn()
+      .then(user => {
+        this.setState({
+          userID: user.data.user._id
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   addBucket(id) {
     console.log("add id =" + id);
@@ -121,29 +119,28 @@ class Buckets extends Component {
       .catch(err => console.log(err));
   }
 
-
-  
   // Below method is for adding favorite to my list
   handleFavoriteSubmit = event => {
     event.preventDefault();
-    
-    const clickedBtnID = event.currentTarget.getAttribute('buttonid');
-    
-    const match = this.state.bucketList.filter(item => clickedBtnID === item._id)[0]
-        console.log(this.state)
-        console.log(match)
- API.saveBucket({
-            activity: match.activity,
-            author: match.author,
-            description: match.description,
-            date: match.date,
-            image: match.image,
-            userID: this.state.userID
-        })
-            .then(() => this.props.history.push("/YourList"))
-            .catch(err => console.log(err));
-};
 
+    const clickedBtnID = event.currentTarget.getAttribute("buttonid");
+
+    const match = this.state.bucketList.filter(
+      item => clickedBtnID === item._id
+    )[0];
+    console.log(this.state);
+    console.log(match);
+    API.saveBucket({
+      activity: match.activity,
+      author: match.author,
+      description: match.description,
+      date: match.date,
+      image: match.image,
+      userID: this.state.userID
+    })
+      .then(() => this.props.history.push("/YourList"))
+      .catch(err => console.log(err));
+  };
 
   compBucket(id) {
     console.log("comp id =" + id);
@@ -173,7 +170,6 @@ class Buckets extends Component {
     this.toggle();
   };
 
-
   render() {
     return (
       <Container fluid>
@@ -184,9 +180,8 @@ class Buckets extends Component {
               <h1 className="display">
                 {this.state.currentAuthor ? (
                   <>
-                   Checkout what others are adding to their lists!<br></br>
-                    {this.state.currentAuthor}, what would you like to
-                    do?
+                    Checkout what others are adding to their lists!<br />
+                    {this.state.currentAuthor}, what would you like to do?
                   </>
                 ) : (
                   <>Please Sign In to add Bucket List Items</>
@@ -194,7 +189,7 @@ class Buckets extends Component {
               </h1>
             </Jumbotron>
           </Col>
-          
+
           <Col size="md-12">
             {this.state.bucketList.length ? (
               <List>
@@ -202,7 +197,11 @@ class Buckets extends Component {
                   <ListItem className="mt-2" key={listItem._id}>
                     <Link to={"/buckets/" + listItem._id}>
                       <strong>
-                        <a data-tip data-for="detailFace" className="hvr-grow-shadow">
+                        <a
+                          data-tip
+                          data-for="detailFace"
+                          className="hvr-grow-shadow"
+                        >
                           {listItem.activity} by {listItem.author}
                         </a>
                         <ReactTooltip id="detailFace" type="dark">
@@ -211,72 +210,80 @@ class Buckets extends Component {
                       </strong>
                     </Link>
 
-                   
                     <AddBtn
                       buttonID={listItem._id}
                       onClick={this.handleFavoriteSubmit}
-                      />
-                    
-
+                    />
                   </ListItem>
                 ))}
               </List>
             ) : (
-              <h3>No Results to Display</h3>
+              <div
+                className="container"
+                style={{
+                  backgroundColor: "#fcfcfc",
+                  padding: "20px",
+                  textAlign: "center"
+                }}
+              >
+                <h3>No Results to Display</h3>
+              </div>
             )}
           </Col>
         </Row>
-        {this.state.currentAuthor ? ( <>
-          <br></br>
-        <div className="modelbuttB">
-                <Button color="primary" onClick={this.toggle}>
-                  Create Your Own!
-                </Button>
-                <Modal
-                  isOpen={this.state.modal}
-                  toggle={this.toggle}
-                  className={this.props.className}
-                >
-                  <ModalHeader toggle={this.toggle}>
-                    Create Your Own!
-                  </ModalHeader>
-                  <ModalBody>
-                    <form>
-                      <Input
-                        value={this.state.activity}
-                        onChange={this.handleInputChange}
-                        name="activity"
-                        placeholder="Activity (required)"
-                      />
+        {this.state.currentAuthor ? (
+          <>
+            <br />
+            <div className="modelbuttB">
+              <Button color="primary" onClick={this.toggle}>
+                Create Your Own!
+              </Button>
+              <Modal
+                isOpen={this.state.modal}
+                toggle={this.toggle}
+                className={this.props.className}
+              >
+                <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
+                <ModalBody>
+                  <form>
+                    <Input
+                      value={this.state.activity}
+                      onChange={this.handleInputChange}
+                      name="activity"
+                      placeholder="Activity (required)"
+                    />
 
-                      <TextArea
-                        value={this.state.description}
-                        onChange={this.handleInputChange}
-                        name="description"
-                        placeholder="Description (Optional)"
-                      />
-                      <Input
-                        value={this.state.image}
-                        onChange={this.handleInputChange}
-                        name="image"
-                        placeholder="Pic (or it didn't happen)"
-                      />
-                      <FormBtn
-                        disabled={!this.state.activity}
-                        onClick={this.handleFormSubmit}
-                      >
-                        Submit Activity
-                      </FormBtn>
-                    </form>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="secondary" onClick={this.toggle}>
-                      Close
-                    </Button>
-                  </ModalFooter>
-                </Modal>
-        </div>
-        </>) : (<div></div>)}
+                    <TextArea
+                      value={this.state.description}
+                      onChange={this.handleInputChange}
+                      name="description"
+                      placeholder="Description (Optional)"
+                    />
+                    <Input
+                      value={this.state.image}
+                      onChange={this.handleInputChange}
+                      name="image"
+                      placeholder="Pic (or it didn't happen)"
+                    />
+                    <FormBtn
+                      disabled={!this.state.activity}
+                      onClick={this.handleFormSubmit}
+                    >
+                      Submit Activity
+                    </FormBtn>
+                  </form>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="secondary" onClick={this.toggle}>
+                    Close
+                  </Button>
+                </ModalFooter>
+              </Modal>
+            </div>
+          </>
+        ) : (
+          <div />
+        )}
       </Container>
     );
   }

@@ -16,7 +16,7 @@ import {
   CardBody,
   CardLink,
   CardTitle,
-  CardSubtitle,
+  CardSubtitle
 } from "reactstrap";
 import StackGrid from "react-stack-grid";
 import AutoResponsive from "autoresponsive-react";
@@ -32,8 +32,7 @@ class YourList extends Component {
     activity: "",
     author: "",
     description: "",
-    image:
-      "https://thumbs.dreamstime.com/z/no-user-profile-picture-24185395.jpg",
+    image: "",
     modal: false,
     currentAuthor: "",
     userID: ""
@@ -43,7 +42,6 @@ class YourList extends Component {
     console.log("component did mount");
     console.log(this.props);
     this.toggle = this.toggle.bind(this);
-    this.toggle();
     API.isLoggedIn()
       .then(user => {
         if (user.data.loggedIn) {
@@ -155,75 +153,21 @@ class YourList extends Component {
               </Jumbotron>
             </Col>
           </Row>
-          <Row>
-            <div className="modelbutt">
-              <Button color="primary" onClick={this.toggle}>
-                Create Your Own!
-              </Button>
-              <Modal
-                isOpen={this.state.modal}
-                toggle={this.toggle}
-                className={this.props.className}
-              >
-                <ModalHeader toggle={this.toggle}>Create Your Own!</ModalHeader>
-                <ModalBody>
-                  <form>
-                    <Input
-                      value={this.state.activity}
-                      onChange={this.handleInputChange}
-                      name="activity"
-                      placeholder="Activity (required)"
-                    />
-
-                    <TextArea
-                      value={this.state.description}
-                      onChange={this.handleInputChange}
-                      name="description"
-                      placeholder="Description (Optional)"
-                    />
-                    <Input
-                      value={this.state.image}
-                      onChange={this.handleInputChange}
-                      name="image"
-                      placeholder="Pic (or it didn't happen)"
-                    />
-                    <FormBtn
-                      disabled={!this.state.activity}
-                      onClick={this.handleFormSubmit}
-                    >
-                      Submit Activity
-                    </FormBtn>
-                  </form>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="secondary" onClick={this.toggle}>
-                    Close
-                  </Button>
-                </ModalFooter>
-              </Modal>
-            </div>
-          </Row>
+          <Row />
           <Row>
             <Col sm="12" md={{ size: 6 }}>
-
               <div id="cardSpacing">
                 {this.state.user && this.state.user.bucketArray.length ? (
-                  <StackGrid columnWidth={330}>
+                  <StackGrid columnWidth={300}>
                     {this.state.incompleteItems.map(listItem => (
                       // <ListItem key={listItem._id}>
                       <Card key={listItem._id} id="bucketCard">
-                        <CardImg
-                          className="cardPic"
-                          src={listItem.image}
-                          alt="Card image cap"
-                        />
                         <CardBody>
                           <CardTitle>
                             <Link to={"/buckets/" + listItem._id}>
                               <strong>{listItem.activity}</strong>
                             </Link>
                           </CardTitle>
-                          <CardText>{listItem.description}</CardText>
                           <CompBtn
                             onClick={() =>
                               this.updateBucket(
@@ -239,33 +183,82 @@ class YourList extends Component {
                       </Card>
                       // </ListItem>
                     ))}
+                    <div className="modelbutt">
+                      <Button color="primary" onClick={this.toggle}>
+                        Create Your Own!
+                      </Button>
+                      <Modal
+                        isOpen={this.state.modal}
+                        toggle={this.toggle}
+                        className={this.props.className}
+                      >
+                        <ModalHeader toggle={this.toggle}>
+                          Create Your Own!
+                        </ModalHeader>
+                        <ModalBody>
+                          <form>
+                            <Input
+                              value={this.state.activity}
+                              onChange={this.handleInputChange}
+                              name="activity"
+                              placeholder="Activity (required)"
+                            />
+
+                            <TextArea
+                              value={this.state.description}
+                              onChange={this.handleInputChange}
+                              name="description"
+                              placeholder="Description (Optional)"
+                            />
+                            <Input
+                              value={this.state.image}
+                              onChange={this.handleInputChange}
+                              name="image"
+                              placeholder="Pic (or it didn't happen)"
+                            />
+                            <FormBtn
+                              disabled={!this.state.activity}
+                              onClick={this.handleFormSubmit}
+                            >
+                              Submit Activity
+                            </FormBtn>
+                          </form>
+                        </ModalBody>
+                        <ModalFooter>
+                          <Button color="secondary" onClick={this.toggle}>
+                            Close
+                          </Button>
+                        </ModalFooter>
+                      </Modal>
+                    </div>
                   </StackGrid>
                 ) : (
+                  <div
+                    className="container"
+                    style={{
+                      backgroundColor: "#fcfcfc",
+                      padding: "20px",
+                      textAlign: "center"
+                    }}
+                  >
                     <h3>No Results to Display</h3>
-                  )}
+                  </div>
+                )}
               </div>
             </Col>
             <Col sm="12" md={{ size: 6 }}>
-
               <div id="cardSpacing">
                 {this.state.user && this.state.user.bucketArray.length ? (
                   <StackGrid columnWidth={300}>
                     {this.state.completedItems.map(listItem => (
                       // <ListItem key={listItem._id}>
                       <Card key={listItem._id} id="bucketCard">
-                        <CardImg
-                          className="cardPic"
-                          width="auto"
-                          src={listItem.image}
-                          alt="Card image cap"
-                        />
                         <CardBody>
                           <CardTitle>
                             <Link to={"/buckets/" + listItem._id}>
                               <strong>{listItem.activity}</strong>
                             </Link>
                           </CardTitle>
-                          <CardText>{listItem.description}</CardText>
                           <CompBtn
                             onClick={() =>
                               this.updateBucket(
@@ -283,13 +276,20 @@ class YourList extends Component {
                     ))}
                   </StackGrid>
                 ) : (
+                  <div
+                    className="container"
+                    style={{
+                      backgroundColor: "#fcfcfc",
+                      padding: "20px",
+                      textAlign: "center"
+                    }}
+                  >
                     <h3>No Results to Display</h3>
-                  )}
+                  </div>
+                )}
               </div>
             </Col>
-
           </Row>
-
         </Container>
       </div>
     );

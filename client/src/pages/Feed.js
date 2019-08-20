@@ -38,7 +38,9 @@ class Feed extends Component {
     return (
       <>
       <Jumbotron>
-<h1>Check Out What Others Have Done!</h1>
+<h1>
+  {}
+  Check Out What Others Have Done!</h1>
       </Jumbotron>
       <div className="container">
         <CardColumns>
@@ -255,6 +257,30 @@ class Feed extends Component {
                 located in the Mahalangur Himal sub-range of the Himalayas. The
                 international border between China and Nepal runs across its
                 summit point.
+              </CardText>
+              <Link to="/feed">
+                <AddBtn onClick={() => alert("Added!")} />
+              </Link>
+              <div />
+            </CardBody>
+          </Card>
+          <Card style={{ width: "18rem" }}>
+            <CardImg
+              style={{ height: "15rem" }}
+              className="hvr-grow-shadow"
+              top
+              width="100%"
+              src="https://snowbrains.com/wp-content/uploads/2018/11/Screenshot-2018-11-08-at-15.25.48-min.png"
+              alt="Card image cap"
+            />
+            <CardBody>
+              <CardTitle>
+                <h3>
+                Climb El Cap  <FaCheck style={{ color: "#04ec18" }}className="hvr-grow-shadow" />
+                </h3></CardTitle>
+              <CardSubtitle><br></br>Completed By: <a href={`mailto:${this.props.email}`}>Nelson</a> </CardSubtitle>
+              <CardText>
+              El Capitan, also known as El Cap, is a vertical rock formation in Yosemite National Park, located on the north side of Yosemite Valley, near its western end. The granite monolith is about 3,000 feet from base to summit along its tallest face, and is a popular objective for rock climbers.
               </CardText>
               <Link to="/feed">
                 <AddBtn onClick={() => alert("Added!")} />

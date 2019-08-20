@@ -69,7 +69,7 @@ export default class NavBar extends React.Component {
               <UncontrolledDropdown nav inNavbar>
 
                 <DropdownToggle nav caret>
-                  Logout
+                  
                 </DropdownToggle>
                 <DropdownMenu right>
                   {this.state.loggedIn ? (
